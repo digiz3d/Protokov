@@ -12,26 +12,27 @@ public class PlayerActionsManager : MonoBehaviour
     public bool IsLeftHandBusy { get; set; } = false;
     public bool IsRightHandBusy { get; set; } = false;
 
-    // Start is called before the first frame update
+    private bool isExecutingAction = false;
+    private Coroutine currentCoroutine;
+
     void Start()
     {
         actionsQueue = new Queue<PlayerHandAction>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (actionsQueue.Count > 0)
         {
             PlayerHandAction nextAction = actionsQueue.Peek();
-            if (CanExecute(nextAction))
+            if (CanExecuteAction(nextAction))
             {
                 ExecuteAction(actionsQueue.Dequeue());
             }
         }
     }
 
-    bool CanExecute(PlayerHandAction action)
+    bool CanExecuteAction(PlayerHandAction action)
     {
         if (IsLeftHandBusy && action.RequiresLeftHand) return false;
         if (IsRightHandBusy && action.RequiresRightHand) return false;
@@ -41,12 +42,30 @@ public class PlayerActionsManager : MonoBehaviour
 
     void ExecuteAction(PlayerHandAction action)
     {
-        StartCoroutine(action.GetBehaviour());
+        if (isExecutingAction || currentCoroutine != null) return;
+
+        isExecutingAction = true;
+        currentCoroutine = StartCoroutine(action.GetBehaviour());
     }
 
     public void EnqueueAction(PlayerHandAction action)
     {
         actionsQueue.Enqueue(action);
+    }
+
+    public void StopCurrentAction()
+    {
+        if (isExecutingAction)
+        {
+            StopCoroutine(currentCoroutine);
+            isExecutingAction = false;
+        }
+    }
+
+    public void ActionFinished()
+    {
+        currentCoroutine = null;
+        isExecutingAction = false;
     }
 
 }

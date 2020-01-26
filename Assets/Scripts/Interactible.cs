@@ -5,8 +5,12 @@ public class Interactible : MonoBehaviour
     [SerializeField]
     private HandActionId action = default;
 
-    public void TriggeredBy(PlayerActionsManager actorActionsManager)
+    public void TriggeredBy(GameObject actorGameObject)
     {
-        actorActionsManager.EnqueueAction(PlayerHandAction.CreateAction(action));
+        PlayerActionsManager actorActionsManager = actorGameObject.GetComponent<PlayerActionsManager>();
+
+        PlayerHandAction playerHandAction = PlayerHandAction.CreateAction(action, actorGameObject, gameObject);
+
+        actorActionsManager.EnqueueAction(playerHandAction);
     }
 }

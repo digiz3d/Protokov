@@ -3,8 +3,6 @@
 [RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
-
-
     [SerializeField]
     private float acceleration = 6f;
     [SerializeField]
@@ -36,7 +34,6 @@ public class PlayerController : MonoBehaviour
         playerInteraction = GetComponent<PlayerInteraction>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         bool pressingForward = false;

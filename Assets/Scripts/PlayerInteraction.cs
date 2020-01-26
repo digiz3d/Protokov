@@ -14,7 +14,7 @@ public class PlayerInteraction : MonoBehaviour
     private Interactible currentInteractibleObject = null;
 
     private PlayerActionsManager playerActionsManager;
-    // Start is called before the first frame update
+
     void Start()
     {
         camTransform = cam.transform;
@@ -22,7 +22,6 @@ public class PlayerInteraction : MonoBehaviour
         playerActionsManager = GetComponent<PlayerActionsManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Debug.DrawRay(camTransform.position, camTransform.forward * InteractionMaxDistance, Color.green, 0f);
@@ -48,7 +47,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (currentInteractibleObject != null)
         {
-            currentInteractibleObject.TriggeredBy(playerActionsManager);
+            currentInteractibleObject.TriggeredBy(gameObject);
         }
     }
 }
