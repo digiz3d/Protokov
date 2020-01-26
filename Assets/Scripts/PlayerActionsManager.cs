@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 public class PlayerActionsManager : MonoBehaviour
 {
     private Queue<PlayerHandAction> actionsQueue;
@@ -26,7 +26,7 @@ public class PlayerActionsManager : MonoBehaviour
             PlayerHandAction nextAction = actionsQueue.Peek();
             if (CanExecute(nextAction))
             {
-                TryExecuteAction(actionsQueue.Dequeue());
+                ExecuteAction(actionsQueue.Dequeue());
             }
         }
     }
@@ -39,9 +39,9 @@ public class PlayerActionsManager : MonoBehaviour
         return true;
     }
 
-    void TryExecuteAction(PlayerHandAction action)
+    void ExecuteAction(PlayerHandAction action)
     {
-        //action.Execute(this);
+        StartCoroutine(action.GetBehaviour());
     }
 
     public void EnqueueAction(PlayerHandAction action)

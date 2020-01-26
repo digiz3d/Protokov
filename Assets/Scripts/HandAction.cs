@@ -1,4 +1,6 @@
-﻿using System;
+﻿using UnityEngine;
+using System;
+using System.Collections;
 
 [Serializable]
 public enum HandActionId
@@ -9,7 +11,7 @@ public enum HandActionId
     PressButton,
 }
 
-public class PlayerHandAction
+abstract public class PlayerHandAction
 {
     private HandActionId id;
 
@@ -21,7 +23,7 @@ public class PlayerHandAction
 
     public static PlayerHandAction CreateAction(HandActionId id)
     {
-        PlayerHandAction action = new PlayerHandAction(id);
+        PlayerHandAction action = null;
 
         switch (id)
         {
@@ -32,11 +34,10 @@ public class PlayerHandAction
                 break;
 
             case HandActionId.OpenDoor:
-                action.RequiresRightHand = false;
                 break;
 
             case HandActionId.PressButton:
-                action.RequiresRightHand = false;
+                action = new PressButtonAction();
                 break;
 
             default:
@@ -49,11 +50,6 @@ public class PlayerHandAction
     public PlayerHandAction(HandActionId id)
     {
         this.id = id;
-
-        switch (id)
-        {
-
-        }
     }
 
     public PlayerHandAction(HandActionId id, bool requiresLeftHand, bool requiresRightHand)
@@ -61,5 +57,21 @@ public class PlayerHandAction
         this.id = id;
         RequiresLeftHand = requiresLeftHand;
         RequiresRightHand = requiresRightHand;
+    }
+
+    abstract public IEnumerator GetBehaviour();
+}
+
+public class PressButtonAction : PlayerHandAction
+{
+    public new bool RequiresRightHand = false;
+
+    public PressButtonAction() : base(HandActionId.PressButton) { }
+
+    public override IEnumerator GetBehaviour()
+    {
+        Debug.Log("starting coroutine");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("After a few seconds");
     }
 }

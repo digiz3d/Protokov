@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -25,12 +26,14 @@ public class PlayerController : MonoBehaviour
 
     public bool ControlsEnabled { get; set; } = true;
 
+    private PlayerInteraction playerInteraction;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         characterController = GetComponent<CharacterController>();
-
+        playerInteraction = GetComponent<PlayerInteraction>();
     }
 
     // Update is called once per frame
@@ -41,6 +44,7 @@ public class PlayerController : MonoBehaviour
         bool pressingLeft = false;
         bool pressingRight = false;
         bool pressingSprint = false;
+        bool pressedUseKey = false;
         float mouseX = 0f;
         float mouseY = 0f;
 
@@ -53,8 +57,14 @@ public class PlayerController : MonoBehaviour
             pressingSprint = Input.GetKey(KeyCode.LeftShift);
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
+            pressedUseKey = Input.GetKeyDown(KeyCode.F);
         }
-        
+
+        if (pressedUseKey)
+        {
+            playerInteraction.TryInteract();
+        }
+
         if (pressingForward && !pressingBackward)
         {
             if (currentForwardSpeed < 0f) currentForwardSpeed += deceleration * Time.deltaTime;

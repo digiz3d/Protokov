@@ -3,43 +3,52 @@ using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [Range(1f, 5f)]
-    public float ArmsLength = 2.5f;
+    [SerializeField, Range(0f, 5f)]
+    private float InteractionMaxDistance = 1.3f;
 
     public Camera cam;
     public Image img;
-    private Transform t;
+    private Transform camTransform;
 
+    private LayerMask layerMask;
+    private Interactible currentInteractibleObject = null;
+
+    private PlayerActionsManager playerActionsManager;
     // Start is called before the first frame update
     void Start()
     {
-        t = cam.transform;
+        camTransform = cam.transform;
+        layerMask = ~(1 << LayerMask.NameToLayer("Player"));
+        playerActionsManager = GetComponent<PlayerActionsManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(t.position, t.forward * ArmsLength, Color.green, 0f);
+        Debug.DrawRay(camTransform.position, camTransform.forward * InteractionMaxDistance, Color.green, 0f);
 
-        RaycastHit hit;
-
-        if (Physics.Raycast(t.position, t.forward, out hit, ArmsLength))
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, InteractionMaxDistance, layerMask))
         {
             GameObject target = hit.collider.gameObject;
-
             Interactible interactibleObject = target.GetComponent<Interactible>();
 
             if (interactibleObject != null)
             {
-                interactibleObject.TriggeredBy(gameObject);
-
-                Debug.Log("c'est pas nul ");
                 img.gameObject.SetActive(true);
+                currentInteractibleObject = interactibleObject;
                 return;
             }
 
         }
-
+        currentInteractibleObject = null;
         img.gameObject.SetActive(false);
+    }
+
+    public void TryInteract()
+    {
+        if (currentInteractibleObject != null)
+        {
+            currentInteractibleObject.TriggeredBy(playerActionsManager);
+        }
     }
 }
