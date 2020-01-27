@@ -109,7 +109,7 @@ public class PressButtonAction : PlayerHandAction
 
 public class TakeAction : PlayerHandAction
 {
-    public new float Duration = 1f;
+    public new float Duration = 0f;
     public new bool RequiresRightHand = false;
 
     public TakeAction(GameObject interactorGameObject, GameObject interactedGameObject) : base(HandActionId.Take, interactorGameObject, interactedGameObject) { }
