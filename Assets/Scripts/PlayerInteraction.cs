@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PlayerActionsManager))]
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField, Range(0f, 5f)]

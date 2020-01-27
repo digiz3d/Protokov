@@ -3,7 +3,8 @@ using System.Collections;
 
 public class TakeAction : PlayerHandAction
 {
-    public new float Duration = 5f;
+    public override float Duration { get; set; } = 5f;
+
     public new bool RequiresRightHand = false;
 
     public TakeAction(GameObject interactorGameObject, GameObject interactedGameObject) : base(HandActionId.Take, interactorGameObject, interactedGameObject) { }

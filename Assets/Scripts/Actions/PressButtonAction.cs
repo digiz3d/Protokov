@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PressButtonAction : PlayerHandAction
 {
-    public new float Duration = 1.5f;
+    public override float Duration { get; set; } = 1f;
+
     public new bool RequiresRightHand = false;
 
     public PressButtonAction(GameObject interactorGameObject, GameObject interactedGameObject) : base(HandActionId.PressButton, interactorGameObject, interactedGameObject) { }
@@ -12,14 +13,10 @@ public class PressButtonAction : PlayerHandAction
     {
         OnStart();
         InteractorGameObject.GetComponent<PlayerController>().ControlsEnabled = false;
-        Debug.Log("euhhh");
 
-        Debug.Log("starting coroutine");
         yield return new WaitForSeconds(Duration);
-        Debug.Log("After a few seconds");
 
         InteractorGameObject.GetComponent<PlayerController>().ControlsEnabled = true;
-        Debug.Log("this is the child OnFinished");
         OnEnd();
     }
 }

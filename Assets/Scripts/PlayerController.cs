@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
@@ -19,11 +20,11 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
 
     private float XClamp;
-    private CharacterController characterController;
     private float yVelocity = 0f;
 
     public bool ControlsEnabled { get; set; } = true;
 
+    private CharacterController characterController;
     private PlayerInteraction playerInteraction;
 
     void Start()

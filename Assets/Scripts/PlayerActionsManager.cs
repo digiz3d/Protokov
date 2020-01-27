@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
+
+[RequireComponent(typeof(LoadingAction))]
 public class PlayerActionsManager : MonoBehaviour
 {
     private Queue<PlayerHandAction> actionsQueue;
@@ -15,9 +16,11 @@ public class PlayerActionsManager : MonoBehaviour
     private bool isExecutingAction = false;
     private Coroutine currentCoroutine;
 
+    private LoadingAction loadingAction;
     void Start()
     {
         actionsQueue = new Queue<PlayerHandAction>();
+        loadingAction = GetComponent<LoadingAction>();
     }
 
     void Update()
@@ -46,6 +49,7 @@ public class PlayerActionsManager : MonoBehaviour
 
         isExecutingAction = true;
         currentCoroutine = StartCoroutine(action.GetBehaviour());
+        loadingAction.Show(action.Duration);
     }
 
     public void EnqueueAction(PlayerHandAction action)
@@ -64,6 +68,7 @@ public class PlayerActionsManager : MonoBehaviour
 
     public void ActionFinished()
     {
+        loadingAction.Hide();
         currentCoroutine = null;
         isExecutingAction = false;
     }

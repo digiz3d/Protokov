@@ -15,7 +15,7 @@ abstract public class PlayerHandAction
 {
     private HandActionId id;
 
-    protected float Duration = 0f;
+    public abstract float Duration { get;  set; }
 
     public GameObject InteractorGameObject { get; set; }
     public GameObject InteractedGameObject { get; set; }
@@ -59,12 +59,10 @@ abstract public class PlayerHandAction
 
     protected void OnStart()
     {
-        Debug.Log("PlayerHandAction::OnStart");
     }
 
     protected void OnEnd()
     {
-        Debug.Log("PlayerHandAction::OnEnd");
         InteractorGameObject.GetComponent<PlayerActionsManager>().ActionFinished();
     }
 
