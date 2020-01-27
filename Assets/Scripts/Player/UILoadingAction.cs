@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingAction : MonoBehaviour
+public class UILoadingAction : MonoBehaviour
 {
     [SerializeField]
-    private Slider slider;
+    private Slider slider = default;
 
     private void Start()
     {
@@ -28,6 +28,5 @@ public class LoadingAction : MonoBehaviour
     public void Hide()
     {
         slider.gameObject.SetActive(false);
-        slider.value = 0;
     }
 }

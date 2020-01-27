@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 81829519056156665}
   - component: {fileID: 81829519056156664}
   - component: {fileID: 81829519056156615}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 81829519154322195}
   - component: {fileID: 81829519154322192}
   - component: {fileID: 81829519154322193}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: R hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 81829519154747751}
   - component: {fileID: 81829519154747750}
   - component: {fileID: 81829519154747749}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L shoulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 81829519243529266}
   - component: {fileID: 81829519243529267}
   - component: {fileID: 81829519243529264}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 81829520547477623}
   - component: {fileID: 81829520547477620}
   - component: {fileID: 81829520547477621}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 2201103813058867039}
   - component: {fileID: 2201103813058867038}
   - component: {fileID: 2201103813058867009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -549,7 +549,10 @@ GameObject:
   - component: {fileID: 2201103815001479349}
   - component: {fileID: 2201103815001479344}
   - component: {fileID: 2201103815001479347}
-  m_Layer: 0
+  - component: {fileID: 2281446780998044178}
+  - component: {fileID: 2281446780998044179}
+  - component: {fileID: 2281446780998044180}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,6 +612,7 @@ MonoBehaviour:
   acceleration: 6
   deceleration: 6
   maxSpeed: 3
+  sprintMultiplicator: 2
   currentForwardSpeed: 0
   currentRightSpeed: 0
   cam: {fileID: 2201103813058867038}
@@ -624,6 +628,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212b426ce0cff264c88ed9e1ea760409, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ArmsLength: 2.5
+  InteractionMaxDistance: 1.3
   cam: {fileID: 2201103813058867038}
   img: {fileID: 0}
+--- !u!114 &2281446780998044178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201103815001479348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d10c3c422bed822488b6c3da94753f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2281446780998044179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201103815001479348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99045994b7c088643b4ba248017ef5b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsFastActionMenuVisible: 0
+  currentIndex: 0
+--- !u!114 &2281446780998044180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2201103815001479348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd11f8bc22e9c234985500bd21739f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 0}

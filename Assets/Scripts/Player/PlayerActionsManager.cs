@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(LoadingAction))]
+[RequireComponent(typeof(UILoadingAction))]
 public class PlayerActionsManager : MonoBehaviour
 {
     private Queue<PlayerHandAction> actionsQueue;
@@ -16,11 +16,11 @@ public class PlayerActionsManager : MonoBehaviour
     private bool isExecutingAction = false;
     private Coroutine currentCoroutine;
 
-    private LoadingAction loadingAction;
+    private UILoadingAction loadingAction;
     void Start()
     {
         actionsQueue = new Queue<PlayerHandAction>();
-        loadingAction = GetComponent<LoadingAction>();
+        loadingAction = GetComponent<UILoadingAction>();
     }
 
     void Update()
