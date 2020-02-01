@@ -12,6 +12,7 @@ public class UILoadingAction : MonoBehaviour
     {
         slider.gameObject.SetActive(false);
     }
+
     private void Update()
     {
         slider.value += Time.deltaTime;

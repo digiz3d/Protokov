@@ -7,9 +7,6 @@ public class PlayerActionsManager : MonoBehaviour
 {
     private Queue<PlayerHandAction> actionsQueue;
 
-    private PlayerHandAction CurrentLeftHandAction = null;
-    private PlayerHandAction CurrentRightHandAction = null;
-
     public bool IsLeftHandBusy { get; set; } = false;
     public bool IsRightHandBusy { get; set; } = false;
 
@@ -17,6 +14,7 @@ public class PlayerActionsManager : MonoBehaviour
     private Coroutine currentCoroutine;
 
     private UILoadingAction loadingAction;
+
     void Start()
     {
         actionsQueue = new Queue<PlayerHandAction>();
