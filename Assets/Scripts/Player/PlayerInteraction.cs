@@ -38,7 +38,6 @@ public class PlayerInteraction : MonoBehaviour
                 currentInteractibleObject = interactibleObject;
                 return;
             }
-
         }
         currentInteractibleObject = null;
         img.gameObject.SetActive(false);
