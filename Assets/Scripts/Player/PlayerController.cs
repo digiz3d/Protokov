@@ -5,6 +5,9 @@
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
+    public Camera cam;
+
+    [SerializeField]
     private float acceleration = 6f;
     [SerializeField]
     private float deceleration = 6f;
@@ -12,12 +15,8 @@ public class PlayerController : MonoBehaviour
     private float maxSpeed = 3f;
     [SerializeField]
     private float sprintMultiplicator = 2f;
-    [SerializeField]
     private float currentForwardSpeed = 0f;
-    [SerializeField]
     private float currentRightSpeed = 0f;
-    [SerializeField]
-    public Camera cam;
 
     private float XClamp;
     private float yVelocity = 0f;
@@ -27,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
     private PlayerInteraction playerInteraction;
 
+    private float timePressedUseKey = 0f;
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
         bool pressingRight = false;
         bool pressingSprint = false;
         bool pressedUseKey = false;
+        bool stillPressingUseKey = false;
+        bool releasedUseKey = false;
         float mouseX = 0f;
         float mouseY = 0f;
 
@@ -56,12 +58,34 @@ public class PlayerController : MonoBehaviour
             mouseX = Input.GetAxisRaw("Mouse X");
             mouseY = Input.GetAxisRaw("Mouse Y");
             pressedUseKey = Input.GetKeyDown(KeyCode.F);
+            stillPressingUseKey = Input.GetKey(KeyCode.F);
         }
 
+        releasedUseKey = Input.GetKeyUp(KeyCode.F);
+
+
+        #region Use key
         if (pressedUseKey)
         {
-            playerInteraction.TryInteract();
+            timePressedUseKey = Time.unscaledTime;
         }
+        else if (releasedUseKey && Time.unscaledTime - timePressedUseKey < 1f)
+        {
+            playerInteraction.FastInteract();
+        }
+        else if (stillPressingUseKey && Time.unscaledTime - timePressedUseKey >= 1f)
+        {
+            playerInteraction.ShowMenu();
+        }
+        else if (releasedUseKey && Time.unscaledTime - timePressedUseKey >= 1f)
+        {
+            ControlsEnabled = true;
+            playerInteraction.SlowInteract();
+            playerInteraction.HideMenu();
+        }
+
+        if (!ControlsEnabled) return;
+        #endregion
 
         if (pressingForward && !pressingBackward)
         {

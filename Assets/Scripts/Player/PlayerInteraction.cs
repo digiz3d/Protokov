@@ -8,19 +8,23 @@ public class PlayerInteraction : MonoBehaviour
     private float InteractionMaxDistance = 1.3f;
 
     public Camera cam;
-    public Image img;
+    public Image actionCursor;
     private Transform camTransform;
 
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
 
+    private PlayerController playerController;
     private PlayerActionsManager playerActionsManager;
-
+    private UIRadialMenuAction radialMenuAction;
+    
     void Start()
     {
         camTransform = cam.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
         playerActionsManager = GetComponent<PlayerActionsManager>();
+        playerController = GetComponent<PlayerController>();
+        radialMenuAction = GetComponent<UIRadialMenuAction>();
     }
 
     void Update()
@@ -34,21 +38,42 @@ public class PlayerInteraction : MonoBehaviour
 
             if (interactibleObject != null)
             {
-                img.gameObject.SetActive(true);
+                actionCursor.gameObject.SetActive(true);
                 currentInteractibleObject = interactibleObject;
                 return;
             }
-
         }
         currentInteractibleObject = null;
-        img.gameObject.SetActive(false);
+        actionCursor.gameObject.SetActive(false);
     }
 
-    public void TryInteract()
+    public void FastInteract()
     {
         if (currentInteractibleObject != null)
         {
             currentInteractibleObject.TriggeredBy(gameObject);
         }
+    }
+
+    public void SlowInteract()
+    {
+        if (currentInteractibleObject != null)
+        {
+            currentInteractibleObject.TriggeredBy(radialMenuAction.GetSelectedAction(), gameObject);
+        }
+    }
+
+    public void ShowMenu()
+    {
+        if (currentInteractibleObject != null)
+        {
+            playerController.ControlsEnabled = false;
+            radialMenuAction.ShowActions(currentInteractibleObject.GetPossibleActions(gameObject));
+        }
+    }
+
+    public void HideMenu()
+    {
+        radialMenuAction.Hide();
     }
 }

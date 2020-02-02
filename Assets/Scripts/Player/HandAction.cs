@@ -6,6 +6,7 @@ using System.Collections;
 public enum HandActionId
 {
     Attach,
+    Cancel,
     OpenDoor,
     PressButton,
     Take,
@@ -28,10 +29,13 @@ abstract public class PlayerHandAction
         PlayerHandAction action = null;
         switch (id)
         {
-            case HandActionId.Attach:
+            case HandActionId.Cancel:
+                action = new CancelAction(interactorGameObject, interactedGameObject);
                 break;
 
-
+            case HandActionId.Attach:
+                break;
+                
             case HandActionId.OpenDoor:
                 break;
 
