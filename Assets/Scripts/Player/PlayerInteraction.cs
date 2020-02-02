@@ -8,7 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     private float InteractionMaxDistance = 1.3f;
 
     public Camera cam;
-    public Image aimCursor;
+    public Image actionCursor;
     private Transform camTransform;
 
     private LayerMask layerMask;
@@ -38,13 +38,13 @@ public class PlayerInteraction : MonoBehaviour
 
             if (interactibleObject != null)
             {
-                aimCursor.gameObject.SetActive(true);
+                actionCursor.gameObject.SetActive(true);
                 currentInteractibleObject = interactibleObject;
                 return;
             }
         }
         currentInteractibleObject = null;
-        aimCursor.gameObject.SetActive(false);
+        actionCursor.gameObject.SetActive(false);
     }
 
     public void FastInteract()
