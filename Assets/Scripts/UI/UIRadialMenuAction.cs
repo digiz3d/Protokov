@@ -5,35 +5,52 @@ using UnityEngine.UI;
 
 public class UIRadialMenuAction : MonoBehaviour
 {
-    [SerializeField]
-    private Canvas canvas = default;
+  [SerializeField]
+  private Canvas canvas = default;
 
-    private HandActionId[] possibleActions;
-    private HandActionId selectedActionId;
+  [SerializeField]
+  private GameObject menuItemPrefab = default;
 
-    void Start()
+  private HandActionId[] possibleActions;
+
+  void Start()
+  {
+    canvas.gameObject.SetActive(false);
+  }
+
+  void Update()
+  {
+
+  }
+
+  public HandActionId GetSelectedAction()
+  {
+    return HandActionId.Cancel;
+  }
+
+  public void ShowActions(HandActionId[] possibleActions)
+  {
+    float gap = (5f / 360f);
+
+    int i = 0;
+    foreach (HandActionId actionId in possibleActions)
     {
-        canvas.gameObject.SetActive(false);
+      GameObject menuItem = Instantiate(menuItemPrefab, canvas.gameObject.transform);
+      menuItem.GetComponent<Image>().fillAmount = (1f / possibleActions.Length) - gap;
+      menuItem.transform.Rotate(0, 0, (360 / possibleActions.Length) * i);
+      i++;
     }
 
-    void Update()
-    {
+    this.possibleActions = possibleActions;
+    canvas.gameObject.SetActive(true);
+  }
 
-    }
-
-    public HandActionId GetSelectedAction()
+  public void Hide()
+  {
+    canvas.gameObject.SetActive(false);
+    foreach (Transform child in canvas.transform)
     {
-        return HandActionId.Cancel;
+      Destroy(child.gameObject);
     }
-
-    public void ShowActions(HandActionId[] possibleActions)
-    {
-        this.possibleActions = possibleActions;
-        canvas.gameObject.SetActive(true);
-    }
-
-    public void Hide()
-    {
-        canvas.gameObject.SetActive(false);
-    }
+  }
 }
