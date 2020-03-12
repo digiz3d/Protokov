@@ -30,9 +30,12 @@ public class UIRadialMenuAction : MonoBehaviour
 
   public void ShowActions(HandActionId[] possibleActions)
   {
+    Debug.Log("showing actions");
+
     float gap = (5f / 360f);
 
     int i = 0;
+
     foreach (HandActionId actionId in possibleActions)
     {
       GameObject menuItem = Instantiate(menuItemPrefab, canvas.gameObject.transform);
@@ -42,6 +45,7 @@ public class UIRadialMenuAction : MonoBehaviour
     }
 
     this.possibleActions = possibleActions;
+
     canvas.gameObject.SetActive(true);
   }
 

@@ -65,6 +65,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public void ShowMenu()
     {
+        Debug.Log("showing menu");
         if (currentInteractibleObject != null)
         {
             playerController.ControlsEnabled = false;
