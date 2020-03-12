@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (stillPressingUseKey && Time.unscaledTime - timePressedUseKey >= 1f)
         {
+            ControlsEnabled = false;
             playerInteraction.ShowMenu();
         }
         else if (releasedUseKey && Time.unscaledTime - timePressedUseKey >= 1f)

@@ -30,8 +30,6 @@ public class UIRadialMenuAction : MonoBehaviour
 
   public void ShowActions(HandActionId[] possibleActions)
   {
-    Debug.Log("showing actions");
-
     float gap = (5f / 360f);
 
     int i = 0;

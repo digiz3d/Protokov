@@ -14,7 +14,6 @@ public class PlayerInteraction : MonoBehaviour
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
 
-    private PlayerController playerController;
     private PlayerActionsManager playerActionsManager;
     private UIRadialMenuAction radialMenuAction;
     
@@ -23,7 +22,6 @@ public class PlayerInteraction : MonoBehaviour
         camTransform = cam.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
         playerActionsManager = GetComponent<PlayerActionsManager>();
-        playerController = GetComponent<PlayerController>();
         radialMenuAction = GetComponent<UIRadialMenuAction>();
     }
 
@@ -65,10 +63,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public void ShowMenu()
     {
-        Debug.Log("showing menu");
         if (currentInteractibleObject != null)
         {
-            playerController.ControlsEnabled = false;
             radialMenuAction.ShowActions(currentInteractibleObject.GetPossibleActions(gameObject));
         }
     }
