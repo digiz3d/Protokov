@@ -2,57 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIRadialMenuAction : MonoBehaviour
 {
-  [SerializeField]
-  private Canvas canvas = default;
+    [SerializeField]
+    private Canvas canvas = default;
 
-  [SerializeField]
-  private GameObject menuItemPrefab = default;
+    [SerializeField]
+    private GameObject menuItemPrefab = default;
 
-  private HandActionId[] possibleActions;
+    private HandActionId[] possibleActions;
 
-  void Start()
-  {
-    canvas.gameObject.SetActive(false);
-  }
-
-  void Update()
-  {
-
-  }
-
-  public HandActionId GetSelectedAction()
-  {
-    return HandActionId.Cancel;
-  }
-
-  public void ShowActions(HandActionId[] possibleActions)
-  {
-    float gap = (5f / 360f);
-
-    int i = 0;
-
-    foreach (HandActionId actionId in possibleActions)
+    void Start()
     {
-      GameObject menuItem = Instantiate(menuItemPrefab, canvas.gameObject.transform);
-      menuItem.GetComponent<Image>().fillAmount = (1f / possibleActions.Length) - gap;
-      menuItem.transform.Rotate(0, 0, (360 / possibleActions.Length) * i);
-      i++;
+        canvas.gameObject.SetActive(false);
     }
 
-    this.possibleActions = possibleActions;
-
-    canvas.gameObject.SetActive(true);
-  }
-
-  public void Hide()
-  {
-    canvas.gameObject.SetActive(false);
-    foreach (Transform child in canvas.transform)
+    void Update()
     {
-      Destroy(child.gameObject);
+
     }
-  }
+
+    public HandActionId GetSelectedAction()
+    {
+        return HandActionId.Cancel;
+    }
+
+    public void ShowActions(HandActionId[] possibleActions)
+    {
+        int i = 0;
+
+        foreach (HandActionId actionId in possibleActions)
+        {
+            GameObject menuItem = Instantiate(menuItemPrefab, canvas.gameObject.transform);
+            float rotation = (360 / possibleActions.Length) * i;
+            menuItem.transform.Rotate(0, 0, rotation);
+            Transform childTextTransform = menuItem.transform.GetChild(0);
+            childTextTransform.Rotate(0, 0, -rotation);
+            childTextTransform.GetComponent<TextMeshProUGUI>().text = i.ToString();
+            i++;
+        }
+
+        this.possibleActions = possibleActions;
+
+        canvas.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        canvas.gameObject.SetActive(false);
+        foreach (Transform child in canvas.transform)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 }
