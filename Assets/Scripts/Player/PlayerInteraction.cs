@@ -15,6 +15,8 @@ public class PlayerInteraction : MonoBehaviour
     private Interactible currentInteractibleObject = null;
 
     private PlayerActionsManager playerActionsManager;
+
+    [SerializeField]
     private UIRadialMenuAction radialMenuAction;
     
     void Start()
@@ -22,7 +24,6 @@ public class PlayerInteraction : MonoBehaviour
         camTransform = cam.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
         playerActionsManager = GetComponent<PlayerActionsManager>();
-        radialMenuAction = GetComponent<UIRadialMenuAction>();
     }
 
     void Update()
