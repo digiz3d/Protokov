@@ -14,19 +14,19 @@ public class CharacterMovements : MonoBehaviour
     private float xRotation = 0f;
 
     [SerializeField, Range(0f, 20f)]
-    private float mouseSensitivity = 10f;
+    private float mouseSensitivity = 5f;
 
     [SerializeField]
-    private float moveForce = 4500f;
+    private float moveForce = 100000f;
 
     [SerializeField]
-    private float maxSpeed = 20f;
+    private float maxSpeed = 5f;
 
     [SerializeField]
     private bool isGrounded = false;
 
-    private float sideInput = 0f;
     private float forwardInput = 0f;
+    private float sideInput = 0f;
 
     private bool jumpInput = false;
     private bool crouchInput = false;
@@ -52,7 +52,15 @@ public class CharacterMovements : MonoBehaviour
         RotateCharacter();
     }
 
-    private void MoveCharacter() { }
+    private void MoveCharacter()
+    {
+        if (rb.velocity.magnitude > maxSpeed) return;
+
+        // apply input forces
+        Debug.Log("forward input = " + forwardInput + ", sideInput=" + sideInput);
+        rb.AddForce(orientationTransform.forward * forwardInput * Time.deltaTime * moveForce);
+        rb.AddForce(orientationTransform.right * sideInput * Time.deltaTime * (moveForce / 2));
+    }
 
     private void HandleInputs()
     {
