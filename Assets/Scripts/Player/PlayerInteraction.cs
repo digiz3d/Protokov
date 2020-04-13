@@ -5,30 +5,30 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField, Range(0f, 5f)]
     private float InteractionMaxDistance = 1.3f;
-
-    [SerializeField]
-    public Camera cam;
+    
     [SerializeField]
     public Image actionCursor;
 
-    private Transform camTransform;
-    private LayerMask layerMask;
-    private Interactible currentInteractibleObject = null;
+    [SerializeField]
+    private Transform pointer;
 
     [SerializeField]
     private UIRadialMenuAction radialMenuAction;
+
+    private LayerMask layerMask;
+    private Interactible currentInteractibleObject = null;
+
     
     void Start()
     {
-        camTransform = cam.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
     }
 
     void Update()
     {
-        Debug.DrawRay(camTransform.position, camTransform.forward * InteractionMaxDistance, Color.green, 0f);
+        Debug.DrawRay(pointer.position, pointer.forward * InteractionMaxDistance, Color.green, 0f);
 
-        if (Physics.Raycast(camTransform.position, camTransform.forward, out RaycastHit hit, InteractionMaxDistance, layerMask))
+        if (Physics.Raycast(pointer.position, pointer.forward, out RaycastHit hit, InteractionMaxDistance, layerMask))
         {
             GameObject target = hit.collider.gameObject;
             Interactible interactibleObject = target.GetComponent<Interactible>();

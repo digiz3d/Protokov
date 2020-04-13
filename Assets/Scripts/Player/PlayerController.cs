@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public bool ControlsEnabled { get; set; } = true;
 
-    private CharacterController characterController;
+    //private CharacterController characterController;
     private PlayerInteraction playerInteraction;
 
     private float timePressedUseKey = 0f;
@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        characterController = GetComponent<CharacterController>();
+        //characterController = GetComponent<CharacterController>();
         playerInteraction = GetComponent<PlayerInteraction>();
     }
 
@@ -140,19 +140,19 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!characterController.isGrounded)
-        {
-            yVelocity += Physics.gravity.y * Time.deltaTime;
-        }
-        else
-        {
-            yVelocity = 0f;
-        }
+        //if (!characterController.isGrounded)
+        //{
+        //    yVelocity += Physics.gravity.y * Time.deltaTime;
+        //}
+        //else
+        //{
+        //    yVelocity = 0f;
+        //}
 
 
         transform.Rotate(0f, mouseX, 0f);
 
-        characterController.Move(transform.TransformVector(new Vector3(currentRightSpeed * Time.deltaTime, yVelocity * Time.deltaTime, currentForwardSpeed * Time.deltaTime)));
+        //characterController.Move(transform.TransformVector(new Vector3(currentRightSpeed * Time.deltaTime, yVelocity * Time.deltaTime, currentForwardSpeed * Time.deltaTime)));
 
         // transform camera
         XClamp -= mouseY;
