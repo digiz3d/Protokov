@@ -3,6 +3,9 @@ using TMPro;
 
 public class UIRadialMenuAction : MonoBehaviour
 {
+    [SerializeField]
+    private float mouseSensitivity = 1f;
+
     private Canvas canvas = default;
 
     [SerializeField]
@@ -27,7 +30,8 @@ public class UIRadialMenuAction : MonoBehaviour
     {
         if (!canvas.isActiveAndEnabled) return;
 
-        cursorMenu.transform.Translate(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0, Space.Self);
+        cursorMenu.transform.Translate(new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0) * mouseSensitivity, Space.Self);
+        cursorMenu.transform.localPosition = Vector3.ClampMagnitude(cursorMenu.transform.localPosition, 100);
     }
 
     public HandActionId GetSelectedAction()
