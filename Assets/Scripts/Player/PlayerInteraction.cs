@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(PlayerActionsManager))]
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField, Range(0f, 5f)]
@@ -14,8 +13,6 @@ public class PlayerInteraction : MonoBehaviour
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
 
-    private PlayerActionsManager playerActionsManager;
-
     [SerializeField]
     private UIRadialMenuAction radialMenuAction;
     
@@ -23,7 +20,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         camTransform = cam.transform;
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
-        playerActionsManager = GetComponent<PlayerActionsManager>();
     }
 
     void Update()

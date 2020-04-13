@@ -4,12 +4,10 @@ using TMPro;
 public class UIRadialMenuAction : MonoBehaviour
 {
     [SerializeField]
-    private float cancelUntilDistance = 50f;
+    private float centerRadius = 50f;
 
     [SerializeField]
     private float mouseSensitivity = 1f;
-
-    private Canvas canvas = default;
 
     [SerializeField]
     private GameObject menuItemPrefab = default;
@@ -17,8 +15,9 @@ public class UIRadialMenuAction : MonoBehaviour
     [SerializeField]
     private GameObject cursorMenuPrefab = default;
 
+    private Canvas canvas = default;
     private GameObject cursorMenu;
-
+    private int previouslyHighlightedItemIndex = -1;
     private HandActionId[] possibleActions;
 
     void Start()
@@ -35,6 +34,8 @@ public class UIRadialMenuAction : MonoBehaviour
 
         cursorMenu.transform.Translate(new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0) * mouseSensitivity, Space.Self);
         cursorMenu.transform.localPosition = Vector3.ClampMagnitude(cursorMenu.transform.localPosition, 100);
+
+        HighlightHoveredItem();
     }
 
     private float GetClockwiseAngle()
@@ -49,17 +50,36 @@ public class UIRadialMenuAction : MonoBehaviour
         return angle;
     }
 
+    public void HighlightHoveredItem()
+    {
+        int selectedItemIndex = GetCurrentSelectedIndex();
+        if (selectedItemIndex == previouslyHighlightedItemIndex) return;
+
+        if (previouslyHighlightedItemIndex != -1)
+            canvas.transform.GetChild(previouslyHighlightedItemIndex).GetComponentInChildren<TextMeshProUGUI>().color =
+                menuItemPrefab.GetComponentInChildren<TextMeshProUGUI>().color;
+
+        if (selectedItemIndex != -1)
+            canvas.transform.GetChild(selectedItemIndex).GetComponentInChildren<TextMeshProUGUI>().color = Color.red;
+
+        previouslyHighlightedItemIndex = selectedItemIndex;
+    }
+
+    public int GetCurrentSelectedIndex()
+    {
+        if (cursorMenu.transform.localPosition.magnitude < centerRadius)
+        {
+            return -1;
+        }
+        float cursorAngle = GetClockwiseAngle();
+        return Mathf.FloorToInt(cursorAngle / 360f * (possibleActions.Length)); ;
+    }
+
     public HandActionId GetSelectedAction()
     {
-        if (cursorMenu.transform.localPosition.magnitude < cancelUntilDistance)
-        {
-            return HandActionId.Cancel;
-        }
 
-        int itemsCount = possibleActions.Length;
-        float cursorAngle = GetClockwiseAngle();
-        int selectedItemIndex = Mathf.FloorToInt(cursorAngle / 360f * (possibleActions.Length));
-        Debug.Log("selectedItemIndex=" + selectedItemIndex);
+        int selectedItemIndex = GetCurrentSelectedIndex();
+        if (selectedItemIndex == -1) return HandActionId.Cancel;
         return possibleActions[selectedItemIndex];
     }
 
@@ -83,9 +103,16 @@ public class UIRadialMenuAction : MonoBehaviour
         cursorMenu.transform.localPosition = Vector3.zero;
         cursorMenu.SetActive(true);
         canvas.gameObject.SetActive(true);
+        canvas.gameObject.transform.localScale = Vector3.zero;
+        LeanTween.scale(canvas.gameObject, new Vector3(1, 1, 1), 0.1f).setEaseLinear();
     }
 
     public void Hide()
+    {
+        LeanTween.scale(canvas.gameObject, Vector3.zero, 0.1f).setEaseLinear().setOnComplete(DestroyMe);
+    }
+
+    private void DestroyMe()
     {
         cursorMenu.SetActive(false);
         canvas.gameObject.SetActive(false);
