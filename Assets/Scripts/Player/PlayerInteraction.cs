@@ -6,10 +6,12 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField, Range(0f, 5f)]
     private float InteractionMaxDistance = 1.3f;
 
+    [SerializeField]
     public Camera cam;
+    [SerializeField]
     public Image actionCursor;
-    private Transform camTransform;
 
+    private Transform camTransform;
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
 

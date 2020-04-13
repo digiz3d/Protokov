@@ -103,6 +103,7 @@ public class UIRadialMenuAction : MonoBehaviour
         cursorMenu.transform.localPosition = Vector3.zero;
         cursorMenu.SetActive(true);
         canvas.gameObject.SetActive(true);
+
         canvas.gameObject.transform.localScale = Vector3.zero;
         LeanTween.scale(canvas.gameObject, new Vector3(1, 1, 1), 0.1f).setEaseLinear();
     }

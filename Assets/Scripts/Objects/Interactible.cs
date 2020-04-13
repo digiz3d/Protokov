@@ -23,8 +23,6 @@ public class Interactible : MonoBehaviour
 
     public void TriggeredBy(HandActionId action, GameObject actorGameObject)
     {
-        Debug.Log("executing action: " + action);
-
         PlayerActionsManager actorActionsManager = actorGameObject.GetComponent<PlayerActionsManager>();
 
         PlayerHandAction playerHandAction = PlayerHandAction.CreateAction(action, actorGameObject, gameObject);
