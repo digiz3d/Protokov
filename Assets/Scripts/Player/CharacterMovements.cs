@@ -1,17 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(PlayerController))]
 public class CharacterMovements : MonoBehaviour
 {
     [SerializeField]
     private Transform orientationTransform;
-
-    [SerializeField]
-    private Transform cameraTransform;
-
-    private float xRotation = 0f;
 
     [SerializeField, Range(0f, 20f)]
     private float mouseSensitivity = 5f;
@@ -33,10 +27,15 @@ public class CharacterMovements : MonoBehaviour
     private bool sprintInput = false;
 
     private Rigidbody rb;
+    private PlayerController playerController;
+    private float xRotation = 0f;
+    private float mouseX;
+    private float mouseY;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        playerController = GetComponent<PlayerController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -54,10 +53,10 @@ public class CharacterMovements : MonoBehaviour
 
     private void MoveCharacter()
     {
+        if (!playerController.ControlsEnabled) return;
+
         if (rb.velocity.magnitude > maxSpeed) return;
 
-        // apply input forces
-        Debug.Log("forward input = " + forwardInput + ", sideInput=" + sideInput);
         rb.AddForce(orientationTransform.forward * forwardInput * Time.deltaTime * moveForce);
         rb.AddForce(orientationTransform.right * sideInput * Time.deltaTime * (moveForce / 2));
     }
@@ -70,17 +69,18 @@ public class CharacterMovements : MonoBehaviour
         jumpInput = Input.GetKey(KeyCode.Space);
         crouchInput = Input.GetKey(KeyCode.LeftControl);
         sprintInput = Input.GetKey(KeyCode.LeftShift);
+
+        mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+        mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
     }
 
     private void RotateCharacter()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        if (!playerController.ControlsEnabled) return;
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -89f, 89f);
-
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        xRotation = Mathf.Clamp(xRotation, -80f, 80f);
+        playerController.cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         orientationTransform.localRotation = Quaternion.Euler(0, orientationTransform.localRotation.eulerAngles.y + mouseX, 0);
     }
 }

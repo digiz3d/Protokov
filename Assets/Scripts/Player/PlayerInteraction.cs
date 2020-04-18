@@ -17,9 +17,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
-
     
-    void Start()
+    void Awake()
     {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
     }
@@ -43,6 +42,8 @@ public class PlayerInteraction : MonoBehaviour
         currentInteractibleObject = null;
         actionCursor.gameObject.SetActive(false);
     }
+
+    public bool CanInteract() => currentInteractibleObject != null;
 
     public void FastInteract()
     {

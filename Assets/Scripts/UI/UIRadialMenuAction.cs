@@ -87,6 +87,8 @@ public class UIRadialMenuAction : MonoBehaviour
     {
         int i = 0;
 
+        previouslyHighlightedItemIndex = -1;
+
         foreach (HandActionId actionId in possibleActions)
         {
             GameObject menuItem = Instantiate(menuItemPrefab, canvas.transform);
