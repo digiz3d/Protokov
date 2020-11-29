@@ -2,7 +2,7 @@
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerController))]
-public class CharacterMovements : MonoBehaviour
+public class PlayerMovements : MonoBehaviour
 {
     [SerializeField]
     private Transform orientationTransform;
