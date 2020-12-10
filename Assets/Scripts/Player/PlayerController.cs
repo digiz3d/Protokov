@@ -3,9 +3,6 @@
 [RequireComponent(typeof(PlayerInteraction))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    public Camera cam;
-
     public bool ControlsEnabled { get; set; } = true;
 
     private PlayerInteraction playerInteraction;
