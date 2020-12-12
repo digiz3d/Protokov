@@ -18,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
     
-    void Awake()
+    void Start()
     {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
     }
