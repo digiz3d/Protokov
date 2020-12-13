@@ -29,10 +29,13 @@ public class InventoryItem : MonoBehaviour
 
     public InventoryItemType type;
 
+    RenderTexture thumbnail;
+
     Dictionary<(int, int), InventoryItemSlot> containerCells;
 
     private void Start()
     {
+        thumbnail = new RenderTexture(256, 256, 1);
         if (isContainer)
         {
             for (int i = 0; i < height; i++)
@@ -82,6 +85,11 @@ public class InventoryItem : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void CreateThumbnail()
+    {
+        ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 
     public override string ToString()

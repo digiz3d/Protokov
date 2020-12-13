@@ -34,6 +34,8 @@ public class PlayerInventory : MonoBehaviour
     public InventoryItemSlot bag;
     public InventoryItemSlot helmet;
 
+    public LayerMask renderLayer;
+
     void Start()
     {
         weapon1 = new InventoryItemSlot() { accepts = InventoryItemType.weapon, itemSlotName = "primary weapon" };
@@ -71,8 +73,7 @@ public class PlayerInventory : MonoBehaviour
         if (res == false && bag.item != null && bag.item.isContainer)
             res = bag.item.TryInsert(item);
 
-        if (res)
-            item.gameObject.SetActive(false);
+        if (res) item.CreateThumbnail();
 
         return res;
     }

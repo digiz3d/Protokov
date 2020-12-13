@@ -18,7 +18,7 @@ public class TakeAction : PlayerHandAction
         {
             if (inventory.TryTake(inventoryItem))
             {
-                //InteractedGameObject.SetActive(false);
+                InteractedGameObject.SetActive(false);
                 yield return new WaitForSeconds(Duration);
             }
         }
