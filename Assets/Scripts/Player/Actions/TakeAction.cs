@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TakeAction : PlayerHandAction
 {
-    public override float Duration { get; set; } = 5f;
+    public override float Duration { get; set; } = 3f;
 
     public new bool RequiresRightHand = false;
 
@@ -12,8 +12,16 @@ public class TakeAction : PlayerHandAction
     public override IEnumerator GetBehaviour()
     {
         OnStart();
-        InteractedGameObject.SetActive(false);
-        yield return new WaitForSeconds(Duration);
+        PlayerInventory inventory = InteractorGameObject.GetComponent<PlayerInventory>();
+        InventoryItem inventoryItem = InteractedGameObject.GetComponent<InventoryItem>();
+        if (inventory != null && inventoryItem != null)
+        {
+            if (inventory.TryTake(inventoryItem))
+            {
+                //InteractedGameObject.SetActive(false);
+                yield return new WaitForSeconds(Duration);
+            }
+        }
         OnEnd();
     }
 }
