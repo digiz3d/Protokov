@@ -27,14 +27,15 @@ public class InventoryItemSlot
 
 public class PlayerInventory : MonoBehaviour
 {
-    public RawImage weapon1Slot;
-
     public InventoryItemSlot weapon1;
     public InventoryItemSlot weapon2;
     public InventoryItemSlot pistol;
     public InventoryItemSlot melee;
     public InventoryItemSlot bag;
     public InventoryItemSlot helmet;
+
+    public GameObject slotWeapon1;
+    public GameObject slotWeapon2;
 
     void Start()
     {
@@ -54,11 +55,7 @@ public class PlayerInventory : MonoBehaviour
 
         if (item.type == InventoryItemType.weapon)
         {
-            if (weapon1.item == null)
-            {
-                weapon1Slot.texture = item.thumbnail;
-                weapon1.item = item;
-            }
+            if (weapon1.item == null) weapon1.item = item;
             else if (weapon2.item == null) weapon2.item = item;
             else res = false;
         }
