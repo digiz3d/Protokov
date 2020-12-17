@@ -29,7 +29,7 @@ public class InventoryItem : MonoBehaviour
 
     public InventoryItemType type;
 
-    RenderTexture thumbnail;
+    public RenderTexture thumbnail;
 
     Dictionary<(int, int), InventoryItemSlot> containerCells;
 
