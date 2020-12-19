@@ -3,78 +3,59 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryItemSlot
-{
-    public InventoryItem item = null;
-    public string itemSlotName = "";
-    public InventoryItemType accepts = InventoryItemType.any;
 
-    public override string ToString()
-    {
-        string str = $"{itemSlotName} : ";
-
-        if (item != null)
-        {
-            str += item.ToString();
-        }
-        else
-        {
-            str += "-";
-        }
-        return str;
-    }
-}
 
 public class PlayerInventory : MonoBehaviour
 {
-    public InventoryItemSlot weapon1;
-    public InventoryItemSlot weapon2;
-    public InventoryItemSlot pistol;
-    public InventoryItemSlot melee;
-    public InventoryItemSlot bag;
-    public InventoryItemSlot helmet;
+    public InventorySlotSerialized weapon1 = new InventorySlotSerialized();
+    public InventorySlotSerialized weapon2 = new InventorySlotSerialized();
+    public InventorySlotSerialized pistol = new InventorySlotSerialized();
+    public InventorySlotSerialized melee = new InventorySlotSerialized();
+    public InventorySlotSerialized backpack = new InventorySlotSerialized();
+    public InventorySlotSerialized helmet = new InventorySlotSerialized();
 
-    public GameObject slotWeapon1;
-    public GameObject slotWeapon2;
-
-    void Start()
+    void Update()
     {
-        weapon1 = new InventoryItemSlot() { accepts = InventoryItemType.weapon, itemSlotName = "primary weapon" };
-        weapon2 = new InventoryItemSlot() { accepts = InventoryItemType.weapon, itemSlotName = "secondary weapon" };
-        pistol = new InventoryItemSlot() { accepts = InventoryItemType.pistol, itemSlotName = "pistol" };
-        melee = new InventoryItemSlot() { accepts = InventoryItemType.melee, itemSlotName = "melee weapon" };
-        bag = new InventoryItemSlot() { accepts = InventoryItemType.bag, itemSlotName = "bag" };
-        helmet = new InventoryItemSlot() { accepts = InventoryItemType.helmet, itemSlotName = "helmet" };
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log(ToString());
+        }
     }
-
+    
     public bool TryTake(InventoryItem item)
     {
-        if (!item.isTakable) return false;
 
         bool res = true;
 
-        if (item.type == InventoryItemType.weapon)
+        if (item.tags.Contains("primary") && item.tags.Contains("weapon"))
         {
             if (weapon1.item == null) weapon1.item = item;
             else if (weapon2.item == null) weapon2.item = item;
             else res = false;
         }
-        else if (item.type == InventoryItemType.pistol)
+        else if (item.tags.Contains("secondary") && item.tags.Contains("weapon"))
         {
             if (pistol.item == null) pistol.item = item;
             else res = false;
         }
-        else if (item.type == InventoryItemType.bag)
+        else if (item.tags.Contains("backpack"))
         {
-            if (bag.item == null) bag.item = item;
+            if (backpack.item == null) backpack.item = item;
             else res = false;
         }
 
 
-        if (res == false && bag.item != null && bag.item.isContainer)
-            res = bag.item.TryInsert(item);
+        if (res == false && backpack.item != null)
+        {
+            InventoryCellGroup[] cellGroups = backpack.item.GetComponents<InventoryCellGroup>();
+            foreach (var cellGroup in cellGroups)
+            {
+                res = cellGroup.TryAutoInsert(item);
+                if (res) break;
+            }
+        }
 
-        if (res) item.CreateThumbnail();
+        //if (res) item.CreateThumbnail();
 
         return res;
     }
@@ -86,7 +67,7 @@ public class PlayerInventory : MonoBehaviour
         str += $"{weapon2}\n";
         str += $"{pistol}\n";
         str += $"{melee}\n";
-        str += $"{bag}\n";
+        str += $"{backpack}\n";
         str += $"{helmet}\n";
         return str;
     }

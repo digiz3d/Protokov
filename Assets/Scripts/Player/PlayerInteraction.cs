@@ -5,7 +5,7 @@ public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField, Range(0f, 5f)]
     private float InteractionMaxDistance = 1.3f;
-    
+
     [SerializeField]
     public Image actionCursor;
 
@@ -17,7 +17,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private LayerMask layerMask;
     private Interactible currentInteractibleObject = null;
-    
+
     void Start()
     {
         layerMask = ~(1 << LayerMask.NameToLayer("Player"));
@@ -31,6 +31,11 @@ public class PlayerInteraction : MonoBehaviour
         {
             GameObject target = hit.collider.gameObject;
             Interactible interactibleObject = target.GetComponent<Interactible>();
+
+            if (interactibleObject == null)
+            {
+                interactibleObject = target.GetComponentInParent<Interactible>();
+            }
 
             if (interactibleObject != null)
             {
