@@ -19,7 +19,6 @@ public class PlayerMovementsCC : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         cc = GetComponent<CharacterController>();
         cam = GetComponentInChildren<Camera>();
         playerController = GetComponent<PlayerController>();

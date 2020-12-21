@@ -4,6 +4,7 @@
 public class PlayerController : MonoBehaviour
 {
     public bool ControlsEnabled { get; set; } = true;
+    public bool LockCursor = false;
 
     private PlayerInteraction playerInteraction;
 
@@ -12,6 +13,12 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         playerInteraction = GetComponent<PlayerInteraction>();
+    }
+
+    void Start()
+    {
+        if (LockCursor)
+            Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

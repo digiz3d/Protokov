@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
+    public UIInventoryRenderer uiRenderer;
     public InventorySlotSerialized weapon1 = new InventorySlotSerialized();
     public InventorySlotSerialized weapon2 = new InventorySlotSerialized();
     public InventorySlotSerialized pistol = new InventorySlotSerialized();
@@ -21,7 +22,7 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log(ToString());
         }
     }
-    
+
     public bool TryTake(InventoryItem item)
     {
 
@@ -56,6 +57,8 @@ public class PlayerInventory : MonoBehaviour
         }
 
         //if (res) item.CreateThumbnail();
+
+        if (uiRenderer != null) uiRenderer.Invalidate();
 
         return res;
     }
