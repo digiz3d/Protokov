@@ -58,6 +58,7 @@ public class UIInventoryRenderer : MonoBehaviour
 
     void Erase(GameObject content)
     {
+        return;
         foreach (Transform child in content.transform)
         {
             Destroy(child.gameObject);
