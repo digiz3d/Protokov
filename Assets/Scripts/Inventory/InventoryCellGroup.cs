@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,7 +56,6 @@ public class InventoryCellGroup : MonoBehaviour
                 if (isEmpty)
                 {
                     int availableSlots = 0;
-                    List<OldInventoryItemSlot> slots = new List<OldInventoryItemSlot>();
                     for (int w = 0; w < item.height; w++)
                     {
                         for (int x = 0; x < item.width; x++)

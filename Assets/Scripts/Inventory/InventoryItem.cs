@@ -2,10 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum InventoryItemTag : byte
+{
+    weapon,
+    primary,
+    secondary,
+    helmet,
+    melee,
+    backpack,
+    magazine,
+    stanag
+}
+
 public class InventoryItem : MonoBehaviour
 {
     public string itemName;
-    public List<string> tags;
+    public List<InventoryItemTag> tags;
     public int height = 1;
     public int width = 1;
     public float weight = 0f;

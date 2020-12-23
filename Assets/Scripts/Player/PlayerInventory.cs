@@ -8,12 +8,12 @@ using UnityEngine.UI;
 public class PlayerInventory : MonoBehaviour
 {
     public UIInventoryRenderer uiRenderer;
-    public InventorySlotSerialized weapon1 = new InventorySlotSerialized();
-    public InventorySlotSerialized weapon2 = new InventorySlotSerialized();
-    public InventorySlotSerialized pistol = new InventorySlotSerialized();
-    public InventorySlotSerialized melee = new InventorySlotSerialized();
-    public InventorySlotSerialized backpack = new InventorySlotSerialized();
-    public InventorySlotSerialized helmet = new InventorySlotSerialized();
+    public InventorySlot weapon1;
+    public InventorySlot weapon2;
+    public InventorySlot secondary;
+    public InventorySlot melee;
+    public InventorySlot backpack;
+    public InventorySlot helmet;
 
     void Update()
     {
@@ -25,23 +25,22 @@ public class PlayerInventory : MonoBehaviour
 
     public bool TryTake(InventoryItem item)
     {
-
         bool res = true;
 
-        if (item.tags.Contains("primary") && item.tags.Contains("weapon"))
+        if (item.tags.Contains(InventoryItemTag.primary) && item.tags.Contains(InventoryItemTag.weapon))
         {
-            if (weapon1.item == null) weapon1.item = item;
-            else if (weapon2.item == null) weapon2.item = item;
+            if (weapon1.item == null) weapon1.AttachItem(item);
+            else if (weapon2.item == null) weapon2.AttachItem(item);
             else res = false;
         }
-        else if (item.tags.Contains("secondary") && item.tags.Contains("weapon"))
+        else if (item.tags.Contains(InventoryItemTag.secondary) && item.tags.Contains(InventoryItemTag.weapon))
         {
-            if (pistol.item == null) pistol.item = item;
+            if (secondary.item == null) secondary.AttachItem(item);
             else res = false;
         }
-        else if (item.tags.Contains("backpack"))
+        else if (item.tags.Contains(InventoryItemTag.backpack))
         {
-            if (backpack.item == null) backpack.item = item;
+            if (backpack.item == null) backpack.AttachItem(item);
             else res = false;
         }
 
@@ -68,7 +67,7 @@ public class PlayerInventory : MonoBehaviour
         string str = "";
         str += $"{weapon1}\n";
         str += $"{weapon2}\n";
-        str += $"{pistol}\n";
+        str += $"{secondary}\n";
         str += $"{melee}\n";
         str += $"{backpack}\n";
         str += $"{helmet}\n";

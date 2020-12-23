@@ -79,11 +79,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Cubic backpack
-  tags:
-  - backpack
+  tags: 05
   height: 2
   width: 2
   weight: 0.6
+  stackable: 0
+  quantity: 1
 --- !u!114 &6152294880165641919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 4
   width: 4
+  items: []
 --- !u!114 &8500265733633649227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,6 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   height: 1
   width: 1
+  items: []
 --- !u!1 &3716280480447924383
 GameObject:
   m_ObjectHideFlags: 0
