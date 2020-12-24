@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public enum OldInventoryItemType
 {
@@ -107,11 +105,6 @@ public class OldIOnventoryItem : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void CreateThumbnail()
-    {
-        ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 
     public override string ToString()

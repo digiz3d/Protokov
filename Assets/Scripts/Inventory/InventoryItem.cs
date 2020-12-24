@@ -24,6 +24,15 @@ public class InventoryItem : MonoBehaviour
     public bool stackable = false;
     public int quantity = 1;
 
+    public const int CELL_SIZE = 40;
+
+    private RenderTexture thumbnail;
+
+    void Start()
+    {
+        thumbnail = new RenderTexture(CELL_SIZE*width, CELL_SIZE*height, 1);
+    }
+
     public override string ToString()
     {
         InventorySlot[] slots = GetComponents<InventorySlot>();
@@ -59,5 +68,10 @@ public class InventoryItem : MonoBehaviour
 
 
         return $"{{ itemName: {itemName}, quantity: {quantity} {slotStr} {cellGroupStr} }}";
+    }
+
+    public void GenerateThumbnail()
+    {
+        ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 }

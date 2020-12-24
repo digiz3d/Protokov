@@ -41,9 +41,9 @@ public class UIInventoryRenderer : MonoBehaviour
     {
         int y = -CELL_SIZE;
         Erase(leftContent);
-        RenderSlot(0, y, CELL_SIZE * 2, CELL_SIZE * 2, leftContent.transform);
-        y -= (CELL_SIZE * 3);
-        RenderSlot(0, y, CELL_SIZE * 2, CELL_SIZE * 2, leftContent.transform);
+        //RenderSlot(0, y, CELL_SIZE * 2, CELL_SIZE * 2, leftContent.transform);
+        //y -= (CELL_SIZE * 3);
+        //RenderSlot(0, y, CELL_SIZE * 2, CELL_SIZE * 2, leftContent.transform);
     }
 
     void RenderMiddleColumn()

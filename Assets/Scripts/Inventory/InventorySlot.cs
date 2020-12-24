@@ -11,5 +11,6 @@ public class InventorySlot : MonoBehaviour
     {
         _item.transform.SetParent(gameObject.transform);
         item = _item;
+        _item.GenerateThumbnail();
     }
 }
