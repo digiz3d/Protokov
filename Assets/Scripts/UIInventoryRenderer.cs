@@ -12,7 +12,7 @@ public class UIInventoryRenderer : MonoBehaviour
     public GameObject middleContent;
     public GameObject rightContent;
 
-    public const int CELL_SIZE = 50;
+    public const int CELL_SIZE = 40;
 
     public bool isInvalidated = true;
 
