@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public UIInventoryRenderer uiRenderer;
+    public UIPlayerInventoryRenderer uiRenderer;
     public InventorySlot weapon1;
     public InventorySlot weapon2;
     public InventorySlot secondary;
     public InventorySlot melee;
     public InventorySlot backpack;
     public InventorySlot helmet;
+    public InventorySlot armor;
 
     void Update()
     {
@@ -54,8 +55,6 @@ public class PlayerInventory : MonoBehaviour
                 if (res) break;
             }
         }
-
-        //if (res) item.CreateThumbnail();
 
         if (uiRenderer != null) uiRenderer.Invalidate();
 

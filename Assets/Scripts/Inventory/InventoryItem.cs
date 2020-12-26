@@ -26,12 +26,7 @@ public class InventoryItem : MonoBehaviour
 
     public const int CELL_SIZE = 40;
 
-    private RenderTexture thumbnail;
-
-    void Start()
-    {
-        thumbnail = new RenderTexture(CELL_SIZE*width, CELL_SIZE*height, 1);
-    }
+    public RenderTexture thumbnail;
 
     public override string ToString()
     {
@@ -72,6 +67,7 @@ public class InventoryItem : MonoBehaviour
 
     public void GenerateThumbnail()
     {
+        thumbnail = new RenderTexture(CELL_SIZE * width*10,10* CELL_SIZE * height, 1);
         ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 }
