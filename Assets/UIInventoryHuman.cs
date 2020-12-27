@@ -5,6 +5,8 @@ public class UIInventoryHuman : MonoBehaviour
 {
     public GameObject itemIconPrefab;
 
+    public Canvas baseCanvas;
+
     [SerializeField]
     GameObject weapon1;
     [SerializeField]
@@ -24,7 +26,6 @@ public class UIInventoryHuman : MonoBehaviour
 
     public void Feed(PlayerInventory inv)
     {
-        Debug.Log("Feeding UIInventoryHuman with a player Inventory");
         RefreshRepresentation(weapon1, inv.weapon1.item);
         RefreshRepresentation(weapon2, inv.weapon2.item);
         RefreshRepresentation(secondary, inv.secondary.item);
@@ -42,6 +43,8 @@ public class UIInventoryHuman : MonoBehaviour
         GameObject newItem = Instantiate(itemIconPrefab, slot.transform);
         RawImage rawImage = newItem.GetComponent<RawImage>();
         rawImage.texture = item.thumbnail;
+        UIInventoryDraggableItem draggableItem = newItem.GetComponent<UIInventoryDraggableItem>();
+        draggableItem.baseCanvas = baseCanvas;
     }
 
     void Erase(GameObject parent)

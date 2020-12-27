@@ -16,7 +16,6 @@ public class ThumbnailsRenderer : MonoBehaviour
 
     public static void RenderItemToTexture(InventoryItem item, RenderTexture thumbnail)
     {
-        Debug.Log($"[Thumbmnails] Generating {item.gameObject.name} picture.");
         GameObject go = Instantiate(item.gameObject, spawn.position, spawn.rotation, spawn);
         go.SetActive(true);
         go.GetComponent<Rigidbody>().isKinematic = true;

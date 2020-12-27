@@ -13,6 +13,8 @@ public class UIPlayerInventoryRenderer : MonoBehaviour
     public GameObject inventoryHumanPrefab;
     public GameObject inventoryNothingPrefab;
 
+    public Canvas baseCanvas;
+
     public const int CELL_SIZE = 40;
 
     public bool isInvalidated = true;
@@ -43,7 +45,9 @@ public class UIPlayerInventoryRenderer : MonoBehaviour
         Erase(leftContentViewport);
         GameObject go = Instantiate(inventoryHumanPrefab, leftContentViewport.transform);
         rec.content = go.GetComponent<RectTransform>();
-        go.GetComponent<UIInventoryHuman>().Feed(inventory);
+        UIInventoryHuman inv = go.GetComponent<UIInventoryHuman>();
+        inv.baseCanvas = baseCanvas;
+        inv.Feed(inventory);
     }
 
     void RenderRightColumn()
