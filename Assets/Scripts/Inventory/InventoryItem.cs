@@ -67,7 +67,7 @@ public class InventoryItem : MonoBehaviour
 
     public void GenerateThumbnail()
     {
-        thumbnail = new RenderTexture(CELL_SIZE * width*10,10* CELL_SIZE * height, 1);
+        thumbnail = new RenderTexture(CELL_SIZE * width * 10, 10 * CELL_SIZE * height, 0);
         ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 }

@@ -8,17 +8,8 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
 {
     public Canvas baseCanvas;
 
+    GameObject copy;
     RectTransform rec;
-    CanvasGroup group;
-    Canvas canvas;
-    Vector2 previousPosition;
-
-    void Start()
-    {
-        rec = GetComponent<RectTransform>();
-        group = GetComponent<CanvasGroup>();
-        canvas = GetComponent<Canvas>();
-    }
 
     public void OnPointerDown(PointerEventData e)
     {
@@ -28,26 +19,36 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
     public void OnBeginDrag(PointerEventData e)
     {
         Debug.Log($"OnBeginDrag {e}");
+
+        CanvasGroup group = GetComponent<CanvasGroup>();
         group.blocksRaycasts = false;
-        group.alpha = 0.8f;
-        previousPosition = rec.anchoredPosition;
+
+
+        copy = Instantiate(gameObject, transform.parent);
+        copy.transform.SetParent(baseCanvas.transform);
+        //Destroy(copy.GetComponent<UIInventoryDraggableItem>());
+        rec = copy.GetComponent<RectTransform>();
+        Canvas canvas = copy.GetComponent<Canvas>();
+        rec.position = GetComponent<RectTransform>().position;
         canvas.overrideSorting = true;
         canvas.sortingOrder = 1;
+
+        group.alpha = 0.8f;
     }
 
     public void OnEndDrag(PointerEventData e)
     {
         Debug.Log($"OnEndDrag {e}");
+        CanvasGroup group = GetComponent<CanvasGroup>();
         group.blocksRaycasts = true;
         group.alpha = 1f;
-        rec.anchoredPosition = previousPosition;
-        canvas.overrideSorting = false;
+        Destroy(copy);
     }
 
     public void OnDrag(PointerEventData e)
     {
-        Debug.Log($"OnDrag {e}");
-        rec.anchoredPosition += e.delta / baseCanvas.scaleFactor;
+        Debug.Log($"OnDrag {e} {baseCanvas.scaleFactor}");
+        copy.GetComponent<RectTransform>().anchoredPosition += e.delta / baseCanvas.scaleFactor;
     }
 
     public void OnDrop(PointerEventData e)
