@@ -56,9 +56,14 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        if (uiRenderer != null) uiRenderer.Invalidate();
+        if (uiRenderer != null) InvalidateUI();
 
         return res;
+    }
+
+    public void InvalidateUI()
+    {
+        uiRenderer.Invalidate();
     }
 
     public override string ToString()

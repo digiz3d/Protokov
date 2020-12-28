@@ -26,24 +26,26 @@ public class UIInventoryHuman : MonoBehaviour
 
     public void Feed(PlayerInventory inv)
     {
-        RefreshRepresentation(weapon1, inv.weapon1.item);
-        RefreshRepresentation(weapon2, inv.weapon2.item);
-        RefreshRepresentation(secondary, inv.secondary.item);
-        RefreshRepresentation(melee, inv.melee.item);
-        RefreshRepresentation(helmet, inv.helmet.item);
-        RefreshRepresentation(armor, inv.armor.item);
-        RefreshRepresentation(backpack, inv.backpack.item);
+        RefreshRepresentation(weapon1, inv.weapon1);
+        RefreshRepresentation(weapon2, inv.weapon2);
+        RefreshRepresentation(secondary, inv.secondary);
+        RefreshRepresentation(melee, inv.melee);
+        RefreshRepresentation(helmet, inv.helmet);
+        RefreshRepresentation(armor, inv.armor);
+        RefreshRepresentation(backpack, inv.backpack);
         Erase(backpackContent);
     }
 
-    void RefreshRepresentation(GameObject slot, InventoryItem item)
+    void RefreshRepresentation(GameObject slotRepresentation, InventorySlot slot)
     {
-        Erase(slot);
-        if (item == null) return;
-        GameObject newItem = Instantiate(itemIconPrefab, slot.transform);
+        Erase(slotRepresentation);
+        slotRepresentation.GetComponent<UIInventoryDroppableSlot>().representedSlot = slot;
+        if (slot.item == null) return;
+        GameObject newItem = Instantiate(itemIconPrefab, slotRepresentation.transform);
         RawImage rawImage = newItem.GetComponent<RawImage>();
-        rawImage.texture = item.thumbnail;
+        rawImage.texture = slot.item.thumbnail;
         UIInventoryDraggableItem draggableItem = newItem.GetComponent<UIInventoryDraggableItem>();
+        draggableItem.representedItem = slot.item;
         draggableItem.baseCanvas = baseCanvas;
     }
 

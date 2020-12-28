@@ -19,6 +19,8 @@ public class UIPlayerInventoryRenderer : MonoBehaviour
 
     public bool isInvalidated = true;
 
+    public static InventoryItem currentlyDraggingItem = null;
+
     void Update()
     {
         if (isInvalidated)
@@ -45,9 +47,9 @@ public class UIPlayerInventoryRenderer : MonoBehaviour
         Erase(leftContentViewport);
         GameObject go = Instantiate(inventoryHumanPrefab, leftContentViewport.transform);
         rec.content = go.GetComponent<RectTransform>();
-        UIInventoryHuman inv = go.GetComponent<UIInventoryHuman>();
-        inv.baseCanvas = baseCanvas;
-        inv.Feed(inventory);
+        UIInventoryHuman uiInventoryHuman = go.GetComponent<UIInventoryHuman>();
+        uiInventoryHuman.baseCanvas = baseCanvas;
+        uiInventoryHuman.Feed(inventory);
     }
 
     void RenderRightColumn()

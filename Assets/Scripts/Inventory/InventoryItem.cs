@@ -11,7 +11,8 @@ public enum InventoryItemTag : byte
     melee,
     backpack,
     magazine,
-    stanag
+    stanag,
+    armor
 }
 
 public class InventoryItem : MonoBehaviour

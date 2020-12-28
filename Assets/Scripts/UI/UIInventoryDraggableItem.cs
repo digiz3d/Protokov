@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     public Canvas baseCanvas;
+    public InventoryItem representedItem;
 
     GameObject copy;
-    RectTransform rec;
 
     public void OnPointerDown(PointerEventData e)
     {
@@ -23,21 +20,21 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
         CanvasGroup group = GetComponent<CanvasGroup>();
         group.blocksRaycasts = false;
 
-
         copy = Instantiate(gameObject, transform.parent);
         copy.transform.SetParent(baseCanvas.transform);
-        //Destroy(copy.GetComponent<UIInventoryDraggableItem>());
-        rec = copy.GetComponent<RectTransform>();
-        Canvas canvas = copy.GetComponent<Canvas>();
-        rec.position = GetComponent<RectTransform>().position;
-        canvas.overrideSorting = true;
-        canvas.sortingOrder = 1;
+        Canvas copyCanvas = copy.GetComponent<Canvas>();
+        copyCanvas.overrideSorting = true;
+        copyCanvas.sortingOrder = 1;
 
         group.alpha = 0.8f;
+
+        UIPlayerInventoryRenderer.currentlyDraggingItem = representedItem;
     }
 
     public void OnEndDrag(PointerEventData e)
     {
+        UIPlayerInventoryRenderer.currentlyDraggingItem = null;
+
         Debug.Log($"OnEndDrag {e}");
         CanvasGroup group = GetComponent<CanvasGroup>();
         group.blocksRaycasts = true;
@@ -47,7 +44,6 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
 
     public void OnDrag(PointerEventData e)
     {
-        Debug.Log($"OnDrag {e} {baseCanvas.scaleFactor}");
         copy.GetComponent<RectTransform>().anchoredPosition += e.delta / baseCanvas.scaleFactor;
     }
 

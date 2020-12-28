@@ -779,6 +779,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb75be0d10f6b348a60819ccab748f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTags: 
+  requiredTags: 08
   attachPoint: {fileID: 5405347352456813385}
   item: {fileID: 0}
