@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,31 +23,41 @@ public class UIInventoryHuman : MonoBehaviour
     [SerializeField]
     GameObject backpack;
     [SerializeField]
-    GameObject backpackContent;
+    UIInventoryContainerRenderer backpackContent;
 
     public void Feed(PlayerInventory inv)
     {
-        RefreshRepresentation(weapon1, inv.weapon1);
-        RefreshRepresentation(weapon2, inv.weapon2);
-        RefreshRepresentation(secondary, inv.secondary);
-        RefreshRepresentation(melee, inv.melee);
-        RefreshRepresentation(helmet, inv.helmet);
-        RefreshRepresentation(armor, inv.armor);
-        RefreshRepresentation(backpack, inv.backpack);
-        Erase(backpackContent);
+        RefreshSlotRepresentation(weapon1, inv.weapon1);
+        RefreshSlotRepresentation(weapon2, inv.weapon2);
+        RefreshSlotRepresentation(secondary, inv.secondary);
+        RefreshSlotRepresentation(melee, inv.melee);
+        RefreshSlotRepresentation(helmet, inv.helmet);
+        RefreshSlotRepresentation(armor, inv.armor);
+        RefreshSlotRepresentation(backpack, inv.backpack);
+        RefreshBackpackContentRepresentation(backpackContent, inv.backpack);
     }
 
-    void RefreshRepresentation(GameObject slotRepresentation, InventorySlot slot)
+    void RefreshSlotRepresentation(GameObject slotRepresentation, InventorySlot slot)
     {
         Erase(slotRepresentation);
         slotRepresentation.GetComponent<UIInventoryDroppableSlot>().representedSlot = slot;
         if (slot.item == null) return;
+
         GameObject newItem = Instantiate(itemIconPrefab, slotRepresentation.transform);
         RawImage rawImage = newItem.GetComponent<RawImage>();
         rawImage.texture = slot.item.thumbnail;
         UIInventoryDraggableItem draggableItem = newItem.GetComponent<UIInventoryDraggableItem>();
         draggableItem.representedItem = slot.item;
         draggableItem.baseCanvas = baseCanvas;
+    }
+
+    void RefreshBackpackContentRepresentation(UIInventoryContainerRenderer backpackContainer, InventorySlot backpackSlot)
+    {
+        Erase(backpackContainer.gameObject);
+        if (backpackSlot.item == null) return;
+
+        backpackContainer.SetCurrentlyRendedItem(backpackSlot.item.gameObject);
+        backpackContainer.Render();
     }
 
     void Erase(GameObject parent)

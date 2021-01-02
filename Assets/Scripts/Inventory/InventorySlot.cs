@@ -30,6 +30,7 @@ public class InventorySlot : MonoBehaviour
 
     bool CanAttachItem(InventoryItem _item)
     {
+        if (_item == null) return false;
         if (item) return false;
 
         foreach (InventoryItemTag tag in requiredTags)
