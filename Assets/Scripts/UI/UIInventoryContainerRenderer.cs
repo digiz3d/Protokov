@@ -32,10 +32,23 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                     rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
                 }
             }
-            offsetY += (cellGroup.height+1) * CELL_SIZE;
+            offsetY += (cellGroup.height + 1) * CELL_SIZE;
         }
 
-        Debug.Log($"It's alright {cellGroups.Length}");
+        int totalYSize = 0;
+        foreach (InventoryCellGroup cellGroup in cellGroups)
+        {
+            if (cellGroup != cellGroups[0])
+                totalYSize += CELL_SIZE;
+
+            for (int h = 0; h < cellGroup.height; h++)
+            {
+                totalYSize += CELL_SIZE;
+            }
+        }
+
+        RectTransform currentTransform = GetComponent<RectTransform>();
+        currentTransform.sizeDelta = new Vector2(currentTransform.sizeDelta.x, totalYSize);
     }
 
     public void SetCurrentlyRendedItem(GameObject container)
