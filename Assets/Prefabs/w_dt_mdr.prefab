@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6151761171119324776}
   - component: {fileID: 6580869660027355833}
   m_Layer: 0
-  m_Name: w_dt-mdr
+  m_Name: w_dt_mdr
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f680cf3c8ddc1b640a9c7fffb0b69caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fastAction: 4
+  fastAction: 3
   slowActions: 
 --- !u!114 &6151761171119324776
 MonoBehaviour:

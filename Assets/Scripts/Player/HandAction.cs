@@ -5,7 +5,6 @@ using System.Collections;
 [Serializable]
 public enum HandActionId
 {
-    Attach,
     Cancel,
     OpenDoor,
     PressButton,
@@ -31,9 +30,6 @@ abstract public class PlayerHandAction
         {
             case HandActionId.Cancel:
                 action = new CancelAction(interactorGameObject, interactedGameObject);
-                break;
-
-            case HandActionId.Attach:
                 break;
                 
             case HandActionId.OpenDoor:

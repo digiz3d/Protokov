@@ -6,12 +6,13 @@ public class InventoryCellGroup : MonoBehaviour
 {
     public int height = 2;
     public int width = 2;
+    public Transform attachPoint;
 
     [Serializable]
     public struct InventoryItemCoords
     {
         public InventoryItem item;
-        public Vector2 coord;
+        public Vector2Int coord;
     }
 
     public List<InventoryItemCoords> items = new List<InventoryItemCoords>();
@@ -24,9 +25,10 @@ public class InventoryCellGroup : MonoBehaviour
             // todo handle insert object here
             items.Add(new InventoryItemCoords()
             {
-                coord = new Vector2(coords.x, coords.y),
+                coord = new Vector2Int(coords.x, coords.y),
                 item = item,
             });
+            item.transform.SetParent(attachPoint, false);
         }
         return foundFreeCells;
     }
@@ -35,38 +37,49 @@ public class InventoryCellGroup : MonoBehaviour
     {
         Dictionary<(int, int), bool> emptyCells = new Dictionary<(int, int), bool>();
 
-        for (int i = 0; i < height; i++)
-            for (int j = 0; j < width; j++)
-                emptyCells.Add((i, j), true);
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                emptyCells.Add((x, y), true);
+            }
+        }
 
         foreach (InventoryItemCoords itemCoords in items)
         {
-            for (int i = 0; i < itemCoords.item.height; i++)
-                for (int j = 0; j < itemCoords.item.width; j++)
-                    emptyCells.Add((i, j), false);
+            for (int x = 0; x < itemCoords.item.width; x++)
+            {
+                for (int y = 0; y < itemCoords.item.height; y++)
+                {
+                    int currentCellX = itemCoords.coord.x + x;
+                    int currentCellY = itemCoords.coord.y + y;
+                    emptyCells.Remove((currentCellX, currentCellY));
+                    emptyCells.Add((currentCellX, currentCellY), false);
+                }
+            }
         }
 
         int neededSlots = item.width * item.height;
 
-        for (int i = 0; i < height; i++)
+        for (int y = 0; y < height; y++)
         {
-            for (int j = 0; j < width; j++)
+            for (int x = 0; x < width; x++)
             {
-                emptyCells.TryGetValue((i, j), out bool isEmpty);
+                emptyCells.TryGetValue((x, y), out bool isEmpty);
                 if (isEmpty)
                 {
                     int availableSlots = 0;
-                    for (int w = 0; w < item.height; w++)
+                    for (int itemX = 0; itemX < item.width; itemX++)
                     {
-                        for (int x = 0; x < item.width; x++)
+                        for (int itemY = 0; itemY < item.height; itemY++)
                         {
-                            emptyCells.TryGetValue((w, x), out bool isEmptyNext);
+                            emptyCells.TryGetValue((x + itemX, y + itemY), out bool isEmptyNext);
                             if (isEmptyNext) availableSlots++;
                         }
                     }
                     if (neededSlots == availableSlots)
                     {
-                        return (true, (i, j));
+                        return (true, (x, y));
                     }
                 }
             }

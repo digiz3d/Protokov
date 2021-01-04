@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1357881504}
   - component: {fileID: 4883676912066507876}
   m_Layer: 0
-  m_Name: m4
+  m_Name: w_m4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f680cf3c8ddc1b640a9c7fffb0b69caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fastAction: 4
+  fastAction: 3
   slowActions: 
 --- !u!114 &1357881504
 MonoBehaviour:
@@ -153,6 +153,7 @@ MonoBehaviour:
   weight: 3.1
   stackable: 0
   quantity: 1
+  thumbnail: {fileID: 0}
 --- !u!114 &4883676912066507876
 MonoBehaviour:
   m_ObjectHideFlags: 0

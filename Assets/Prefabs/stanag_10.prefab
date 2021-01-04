@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5343249005159242745}
   - component: {fileID: 8725505582909928393}
   - component: {fileID: 4512218793262531309}
+  - component: {fileID: 4266397633703705017}
   m_Layer: 0
   m_Name: mesh
   m_TagString: Untagged
@@ -81,6 +82,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &4266397633703705017
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4520147619681596792}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6700696047399303630, guid: fb3615f5d24b0e94d8cdd232e8c9af2a, type: 3}
 --- !u!1 &5795070472647239951
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,6 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5528500549759183361}
   - component: {fileID: -8283745769506140595}
+  - component: {fileID: 3053984356106705082}
   m_Layer: 0
   m_Name: stanag_10
   m_TagString: Untagged
@@ -132,3 +148,18 @@ MonoBehaviour:
   weight: 0.12
   stackable: 0
   quantity: 1
+  thumbnail: {fileID: 0}
+--- !u!114 &3053984356106705082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795070472647239951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f680cf3c8ddc1b640a9c7fffb0b69caf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fastAction: 3
+  slowActions: 

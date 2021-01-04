@@ -44,10 +44,15 @@ public class PlayerInventory : MonoBehaviour
             if (backpack.item == null) backpack.AttachItem(item);
             else res = false;
         }
+        else
+        {
+            res = false;
+        }
 
 
         if (res == false && backpack.item != null)
         {
+            Debug.Log("It is trying to go into backpack");
             InventoryCellGroup[] cellGroups = backpack.item.GetComponents<InventoryCellGroup>();
             foreach (var cellGroup in cellGroups)
             {
