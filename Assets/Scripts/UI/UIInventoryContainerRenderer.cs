@@ -4,8 +4,10 @@ using UnityEngine;
 public class UIInventoryContainerRenderer : MonoBehaviour
 {
     public const int CELL_SIZE = 80;
+    public const int CELL_GROUPS_MARGIN = 20;
 
     public GameObject prefabInventoryCell;
+    public GameObject prefabInventoryDraggableItem;
 
     GameObject currentlyRendererContainer;
 
@@ -32,14 +34,37 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                     rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
                 }
             }
-            offsetY += (cellGroup.height + 1) * CELL_SIZE;
+            offsetY += cellGroup.height * CELL_SIZE + CELL_GROUPS_MARGIN;
+        }
+
+        offsetY = 0;
+
+        foreach (InventoryCellGroup cellGroup in cellGroups)
+        {
+            for (int x = 0; x < cellGroup.width; x++)
+            {
+                for (int y = 0; y < cellGroup.height; y++)
+                {
+                    (bool hasItem, InventoryItem item) = cellGroup.FindItemAt(x, y);
+                    Debug.Log($"hasItem={hasItem}, x = {x}, y ={y}");
+                    if (hasItem)
+                    {
+                        GameObject go = Instantiate(prefabInventoryDraggableItem, transform);
+                        go.name = $"Item {item.itemName}";
+                        RectTransform rect = go.GetComponent<RectTransform>();
+                        rect.sizeDelta = new Vector2(CELL_SIZE * item.width, CELL_SIZE * item.height);
+                        rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
+                    }
+                }
+            }
+            offsetY += cellGroup.height * CELL_SIZE + CELL_GROUPS_MARGIN;
         }
 
         int totalYSize = 0;
         foreach (InventoryCellGroup cellGroup in cellGroups)
         {
             if (cellGroup != cellGroups[0])
-                totalYSize += CELL_SIZE;
+                totalYSize += CELL_GROUPS_MARGIN;
 
             for (int h = 0; h < cellGroup.height; h++)
             {

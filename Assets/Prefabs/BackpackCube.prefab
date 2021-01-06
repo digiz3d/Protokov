@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 1
-  width: 1
+  width: 2
   attachPoint: {fileID: 2130315947536148324}
   items: []
 --- !u!1 &3716280480447924383
