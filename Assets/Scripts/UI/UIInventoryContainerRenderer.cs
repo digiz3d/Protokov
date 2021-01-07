@@ -10,6 +10,12 @@ public class UIInventoryContainerRenderer : MonoBehaviour
     public GameObject prefabInventoryDraggableItem;
 
     GameObject currentlyRendererContainer;
+    Canvas baseCanvas;
+
+    public void SetBaseCanvas(Canvas _baseCanvas)
+    {
+        baseCanvas = _baseCanvas;
+    }
 
     public void Render()
     {
@@ -32,6 +38,8 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                     RectTransform rect = go.GetComponent<RectTransform>();
                     rect.sizeDelta = new Vector2(CELL_SIZE, CELL_SIZE);
                     rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
+                    UIInventoryCell cell = go.GetComponent<UIInventoryCell>();
+                    cell.Setup(cellGroup, x, y);
                 }
             }
             offsetY += cellGroup.height * CELL_SIZE + CELL_GROUPS_MARGIN;
@@ -54,6 +62,9 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                         RectTransform rect = go.GetComponent<RectTransform>();
                         rect.sizeDelta = new Vector2(CELL_SIZE * item.width, CELL_SIZE * item.height);
                         rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
+                        UIInventoryDraggableItem draggableItem = go.GetComponent<UIInventoryDraggableItem>();
+                        //draggableItem.representedItem = slot.item;
+                        draggableItem.baseCanvas = baseCanvas;
                     }
                 }
             }

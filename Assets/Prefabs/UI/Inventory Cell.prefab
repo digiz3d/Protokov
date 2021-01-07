@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3531257084622893296}
   - component: {fileID: 1622695309486388658}
   - component: {fileID: 7007865926012902598}
+  - component: {fileID: 4587742707193802390}
   m_Layer: 5
-  m_Name: Inventory Cell
+  m_Name: Inventory cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,3 +76,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4587742707193802390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055144493978759626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f338d11f322f8ae4b9b7f228361c3364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

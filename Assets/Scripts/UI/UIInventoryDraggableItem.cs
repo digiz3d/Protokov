@@ -10,12 +10,12 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
 
     public void OnPointerDown(PointerEventData e)
     {
-        Debug.Log($"OnPointerDown {e}");
+        //Debug.Log($"OnPointerDown {e}");
     }
 
     public void OnBeginDrag(PointerEventData e)
     {
-        Debug.Log($"OnBeginDrag {e}");
+        //Debug.Log($"OnBeginDrag {e}");
 
         CanvasGroup group = GetComponent<CanvasGroup>();
         group.blocksRaycasts = false;
@@ -49,6 +49,6 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
 
     public void OnDrop(PointerEventData e)
     {
-        Debug.Log($"BAD OnDrop {e}");
+        Debug.Log($"Dropped on item {e}");
     }
 }

@@ -56,6 +56,7 @@ public class UIInventoryHuman : MonoBehaviour
         Erase(backpackContainer.gameObject);
         if (backpackSlot.item == null) return;
 
+        backpackContainer.SetBaseCanvas(baseCanvas);
         backpackContainer.SetCurrentlyRendedItem(backpackSlot.item.gameObject);
         backpackContainer.Render();
     }

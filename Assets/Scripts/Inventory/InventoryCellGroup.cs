@@ -23,12 +23,36 @@ public class InventoryCellGroup : MonoBehaviour
         if (foundIndex >= 0) return false;
         return true;
     }
+
+    bool HasItemAt(InventoryItem inventoryItem, int x, int y)
+    {
+        int foundIndex = items.FindIndex(item =>
+        {
+            bool isMatchingX = item.coord.x <= x && x <= (item.coord.x + item.item.width - 1);
+            bool isMatchingY = item.coord.y <= y && y <= (item.coord.y + item.item.height - 1);
+            bool isSameAsOriginal = inventoryItem == item.item;
+            return isMatchingX && isMatchingY && !isSameAsOriginal;
+        });
+
+        if (foundIndex >= 0) return false;
+        return true;
+    }
+
     public (bool, InventoryItem) FindItemAt(int x, int y)
     {
         int foundIndex = items.FindIndex(item => item.coord.x == x && item.coord.y == y);
         if (foundIndex >= 0) return (true, items[foundIndex].item);
         return (false, null);
     }
+
+    public bool TryInsertAt(InventoryItem item, int x, int y)
+    {
+        bool hasItem = HasItemAt(item, x, y);
+        if (!hasItem) return false;
+
+        throw new NotImplementedException("TODO");
+    }
+
     public bool TryAutoInsert(InventoryItem item)
     {
         (bool foundFreeCells, (int x, int y) coords) = AutoFindFreeCoordinateFor(item);
