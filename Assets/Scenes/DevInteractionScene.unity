@@ -1677,6 +1677,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stanag_20
       objectReference: {fileID: 0}
+    - target: {fileID: 1018902869917468890, guid: 3c0e2070860565f4ea5be8a44a596ed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c0e2070860565f4ea5be8a44a596ed6, type: 3}
 --- !u!1 &816556415
@@ -1841,7 +1846,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 817038880}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba106e6eaec18724d8abb75c4ec12e6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 005f628b5e86ae94c84a680f30f58f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 2129007901}
@@ -2107,8 +2112,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 995907419}
   m_HandleRect: {fileID: 995907418}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 1
+  m_Value: 0
+  m_Size: 0.9999974
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3103,7 +3108,7 @@ PrefabInstance:
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
@@ -4775,6 +4780,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: stanag_10
       objectReference: {fileID: 0}
+    - target: {fileID: 5795070472647239951, guid: adeba512f5d686a4d84cbf3c62bb8d95,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: adeba512f5d686a4d84cbf3c62bb8d95, type: 3}
 --- !u!1 &1886781103
@@ -5819,10 +5829,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 997858823123714108, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: items.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 997858823123714108, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: items.Array.data[0].item
+      value: 
+      objectReference: {fileID: 1727552971}
+    - target: {fileID: 2751788272140520727, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: items.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2751788272140520727, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: items.Array.data[0].item
+      value: 
+      objectReference: {fileID: 1866851540}
     - target: {fileID: 3716280480324778170, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
         type: 3}
       propertyPath: m_Name
       value: BackpackCube
+      objectReference: {fileID: 0}
+    - target: {fileID: 3716280480324778170, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3716280480324778172, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
         type: 3}
