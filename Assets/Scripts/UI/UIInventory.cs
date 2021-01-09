@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPlayerInventoryRenderer : MonoBehaviour
+public class UIInventory : MonoBehaviour
 {
     public PlayerInventory inventory;
     public GameObject leftContentViewport;
@@ -48,8 +48,7 @@ public class UIPlayerInventoryRenderer : MonoBehaviour
         GameObject go = Instantiate(inventoryHumanPrefab, leftContentViewport.transform);
         rec.content = go.GetComponent<RectTransform>();
         UIInventoryHuman uiInventoryHuman = go.GetComponent<UIInventoryHuman>();
-        uiInventoryHuman.baseCanvas = baseCanvas;
-        uiInventoryHuman.Feed(inventory);
+        uiInventoryHuman.Setup(baseCanvas, inventory);
     }
 
     void RenderRightColumn()

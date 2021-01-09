@@ -3,10 +3,15 @@ using UnityEngine.EventSystems;
 
 public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
-    public Canvas baseCanvas;
-    public InventoryItem representedItem;
-
+    Canvas baseCanvas;
+    InventoryItem representedItem;
     GameObject copy;
+
+    public void Setup(Canvas _baseCanvas, InventoryItem _representedItem)
+    {
+        baseCanvas = _baseCanvas;
+        representedItem = _representedItem;
+    }
 
     public void OnPointerDown(PointerEventData e)
     {
@@ -28,12 +33,12 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
 
         group.alpha = 0.8f;
 
-        UIPlayerInventoryRenderer.currentlyDraggingItem = representedItem;
+        UIInventory.currentlyDraggingItem = representedItem;
     }
 
     public void OnEndDrag(PointerEventData e)
     {
-        UIPlayerInventoryRenderer.currentlyDraggingItem = null;
+        UIInventory.currentlyDraggingItem = null;
 
         Debug.Log($"OnEndDrag {e}");
         CanvasGroup group = GetComponent<CanvasGroup>();

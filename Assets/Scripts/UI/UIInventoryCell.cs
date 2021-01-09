@@ -7,15 +7,16 @@ public class UIInventoryCell : MonoBehaviour, IDropHandler
     int x;
     int y;
 
-    public void Setup(InventoryCellGroup cellGroup, int x, int y)
+    public void Setup(InventoryCellGroup cellGroup, int _x, int _y)
     {
         representedCellGroup = cellGroup;
-        this.x = x;
-        this.y = y;
+        x = _x;
+        y = _y;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
+        representedCellGroup.TryInsertAt(UIInventory.currentlyDraggingItem, x, y);
         Debug.Log($"on drop on cell {x} {y}");
     }
 }

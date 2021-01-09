@@ -6,7 +6,7 @@ public class UIInventoryHuman : MonoBehaviour
 {
     public GameObject itemIconPrefab;
 
-    public Canvas baseCanvas;
+    Canvas baseCanvas;
 
     [SerializeField]
     GameObject weapon1;
@@ -25,8 +25,9 @@ public class UIInventoryHuman : MonoBehaviour
     [SerializeField]
     UIInventoryContainerRenderer backpackContent;
 
-    public void Feed(PlayerInventory inv)
+    public void Setup(Canvas _baseCanvas, PlayerInventory inv)
     {
+        baseCanvas = _baseCanvas;
         RefreshSlotRepresentation(weapon1, inv.weapon1);
         RefreshSlotRepresentation(weapon2, inv.weapon2);
         RefreshSlotRepresentation(secondary, inv.secondary);
@@ -47,8 +48,7 @@ public class UIInventoryHuman : MonoBehaviour
         RawImage rawImage = newItem.GetComponent<RawImage>();
         rawImage.texture = slot.item.thumbnail;
         UIInventoryDraggableItem draggableItem = newItem.GetComponent<UIInventoryDraggableItem>();
-        draggableItem.representedItem = slot.item;
-        draggableItem.baseCanvas = baseCanvas;
+        draggableItem.Setup(baseCanvas, slot.item);
     }
 
     void RefreshBackpackContentRepresentation(UIInventoryContainerRenderer backpackContainer, InventorySlot backpackSlot)
@@ -56,8 +56,7 @@ public class UIInventoryHuman : MonoBehaviour
         Erase(backpackContainer.gameObject);
         if (backpackSlot.item == null) return;
 
-        backpackContainer.SetBaseCanvas(baseCanvas);
-        backpackContainer.SetCurrentlyRendedItem(backpackSlot.item.gameObject);
+        backpackContainer.Setup(baseCanvas, backpackSlot.item.gameObject);
         backpackContainer.Render();
     }
 

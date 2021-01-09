@@ -7,7 +7,7 @@ public class UIInventoryDroppableSlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData e)
     {
-        Debug.Log($"Droppé on slot : name={UIPlayerInventoryRenderer.currentlyDraggingItem} into {representedSlot.name}");
-        representedSlot.AttachItem(UIPlayerInventoryRenderer.currentlyDraggingItem);
+        Debug.Log($"Droppé on slot : name={UIInventory.currentlyDraggingItem} into {representedSlot.name}");
+        representedSlot.AttachItem(UIInventory.currentlyDraggingItem);
     }
 }

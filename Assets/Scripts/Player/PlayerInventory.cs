@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public UIPlayerInventoryRenderer uiRenderer;
+    public UIInventory uiRenderer;
     public InventorySlot weapon1;
     public InventorySlot weapon2;
     public InventorySlot secondary;
@@ -53,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
         if (res == false && backpack.item != null)
         {
             Debug.Log("It is trying to go into backpack");
-            InventoryCellGroup[] cellGroups = backpack.item.GetComponents<InventoryCellGroup>();
+            InventoryCellGroup[] cellGroups = backpack.item.GetComponentsInChildren<InventoryCellGroup>(true);
             foreach (var cellGroup in cellGroups)
             {
                 res = cellGroup.TryAutoInsert(item);

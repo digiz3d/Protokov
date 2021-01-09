@@ -28,6 +28,12 @@ public class InventorySlot : MonoBehaviour
         GetComponentInParent<PlayerInventory>().InvalidateUI();
     }
 
+    public void UnregisterItem(InventoryItem inventoryItem)
+    {
+        if (item == inventoryItem) item = null;
+        GetComponentInParent<PlayerInventory>().InvalidateUI();
+    }
+
     bool CanAttachItem(InventoryItem _item)
     {
         if (_item == null) return false;

@@ -6,7 +6,6 @@ public class InventoryCellGroup : MonoBehaviour
 {
     public int height = 2;
     public int width = 2;
-    public Transform attachPoint;
 
     [Serializable]
     public struct InventoryItemCoords
@@ -28,13 +27,19 @@ public class InventoryCellGroup : MonoBehaviour
     {
         int foundIndex = items.FindIndex(item =>
         {
-            bool isMatchingX = item.coord.x <= x && x <= (item.coord.x + item.item.width - 1);
-            bool isMatchingY = item.coord.y <= y && y <= (item.coord.y + item.item.height - 1);
-            bool isSameAsOriginal = inventoryItem == item.item;
-            return isMatchingX && isMatchingY && !isSameAsOriginal;
+            if (inventoryItem == item.item)
+            {
+                Debug.Log("Same item. Skipping comparison.");
+                return false;
+            }
+
+            bool isIntersectingX = item.coord.x <= x && x <= (item.coord.x + item.item.width - 1);
+            bool isIntersectingY = item.coord.y <= y && y <= (item.coord.y + item.item.height - 1);
+            Debug.Log($"NOT same item. Comparing. isIntersectingX {isIntersectingX}, isIntersectingY {isIntersectingY}");
+            return isIntersectingX && isIntersectingX;
         });
 
-        if (foundIndex >= 0) return false;
+        if (foundIndex == -1) return false;
         return true;
     }
 
@@ -45,12 +50,24 @@ public class InventoryCellGroup : MonoBehaviour
         return (false, null);
     }
 
+    void InsertItem(InventoryItem item,int x, int y)
+    {
+        item.UnregisterFromParent();
+        items.Add(new InventoryItemCoords()
+        {
+            coord = new Vector2Int(x, y),
+            item = item,
+        });
+        item.transform.SetParent(transform, false);
+        GetComponentInParent<PlayerInventory>().InvalidateUI();
+    }
+
     public bool TryInsertAt(InventoryItem item, int x, int y)
     {
         bool hasItem = HasItemAt(item, x, y);
-        if (!hasItem) return false;
-
-        throw new NotImplementedException("TODO");
+        if (hasItem) return false;
+        InsertItem(item, x, y);
+        return true;
     }
 
     public bool TryAutoInsert(InventoryItem item)
@@ -58,15 +75,15 @@ public class InventoryCellGroup : MonoBehaviour
         (bool foundFreeCells, (int x, int y) coords) = AutoFindFreeCoordinateFor(item);
         if (foundFreeCells)
         {
-            // todo handle insert object here
-            items.Add(new InventoryItemCoords()
-            {
-                coord = new Vector2Int(coords.x, coords.y),
-                item = item,
-            });
-            item.transform.SetParent(attachPoint, false);
+            InsertItem(item, coords.x, coords.y);
         }
         return foundFreeCells;
+    }
+
+    public void UnregisterItem(InventoryItem item)
+    {
+        items.RemoveAll(itemCoord => itemCoord.item == item);
+        GetComponentInParent<PlayerInventory>().InvalidateUI();
     }
 
     private (bool, (int, int)) AutoFindFreeCoordinateFor(InventoryItem item)

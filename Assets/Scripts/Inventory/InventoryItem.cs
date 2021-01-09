@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,7 +47,7 @@ public class InventoryItem : MonoBehaviour
             slotStr += ")";
         }
 
-        InventoryCellGroup[] cellGroups = GetComponents<InventoryCellGroup>();
+        InventoryCellGroup[] cellGroups = GetComponentsInChildren<InventoryCellGroup>(true);
 
         string cellGroupStr = "";
         if (cellGroups.Length > 0)
@@ -64,6 +65,19 @@ public class InventoryItem : MonoBehaviour
 
 
         return $"{{ itemName: {itemName}, quantity: {quantity} {slotStr} {cellGroupStr} }}";
+    }
+
+    public void UnregisterFromParent()
+    {
+        if (transform.parent != null)
+        {
+            InventoryCellGroup cellGroup = transform.parent.GetComponent<InventoryCellGroup>();
+            if (cellGroup != null) cellGroup.UnregisterItem(this);
+
+            InventorySlot slot = transform.parent.GetComponent<InventorySlot>();
+            if (slot != null) slot.UnregisterItem(this);
+        }
+
     }
 
     public void GenerateThumbnail()

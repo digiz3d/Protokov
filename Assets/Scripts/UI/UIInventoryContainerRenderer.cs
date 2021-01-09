@@ -12,16 +12,18 @@ public class UIInventoryContainerRenderer : MonoBehaviour
     GameObject currentlyRendererContainer;
     Canvas baseCanvas;
 
-    public void SetBaseCanvas(Canvas _baseCanvas)
+    public void Setup(Canvas _baseCanvas, GameObject container)
     {
         baseCanvas = _baseCanvas;
+        currentlyRendererContainer = container;
+
     }
 
     public void Render()
     {
         if (currentlyRendererContainer == null) return;
 
-        InventoryCellGroup[] cellGroups = currentlyRendererContainer.GetComponents<InventoryCellGroup>();
+        InventoryCellGroup[] cellGroups = currentlyRendererContainer.GetComponentsInChildren<InventoryCellGroup>(true);
 
         if (cellGroups.Length == 0) throw new Exception("A backpack should always have cellgroups");
 
@@ -54,7 +56,6 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                 for (int y = 0; y < cellGroup.height; y++)
                 {
                     (bool hasItem, InventoryItem item) = cellGroup.FindItemAt(x, y);
-                    Debug.Log($"hasItem={hasItem}, x = {x}, y ={y}");
                     if (hasItem)
                     {
                         GameObject go = Instantiate(prefabInventoryDraggableItem, transform);
@@ -63,8 +64,7 @@ public class UIInventoryContainerRenderer : MonoBehaviour
                         rect.sizeDelta = new Vector2(CELL_SIZE * item.width, CELL_SIZE * item.height);
                         rect.anchoredPosition = new Vector3(CELL_SIZE * x, -CELL_SIZE * y - offsetY, 0);
                         UIInventoryDraggableItem draggableItem = go.GetComponent<UIInventoryDraggableItem>();
-                        //draggableItem.representedItem = slot.item;
-                        draggableItem.baseCanvas = baseCanvas;
+                        draggableItem.Setup(baseCanvas, item);
                     }
                 }
             }
@@ -85,10 +85,5 @@ public class UIInventoryContainerRenderer : MonoBehaviour
 
         RectTransform currentTransform = GetComponent<RectTransform>();
         currentTransform.sizeDelta = new Vector2(currentTransform.sizeDelta.x, totalYSize);
-    }
-
-    public void SetCurrentlyRendedItem(GameObject container)
-    {
-        currentlyRendererContainer = container;
     }
 }
