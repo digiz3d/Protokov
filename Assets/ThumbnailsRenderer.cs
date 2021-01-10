@@ -6,6 +6,8 @@ public class ThumbnailsRenderer : MonoBehaviour
 
     static Camera cam;
 
+    public const int CELL_SIZE = 40;
+
     void Start()
     {
         DontDestroyOnLoad(this);
@@ -14,8 +16,9 @@ public class ThumbnailsRenderer : MonoBehaviour
         cam.enabled = false;
     }
 
-    public static void RenderItemToTexture(InventoryItem item, RenderTexture thumbnail)
+    public static void RenderItemTexture(InventoryItem item)
     {
+        Debug.Log($"Rendering item : {item.name} from {item.gameObject.name}");
         GameObject go = Instantiate(item.gameObject, spawn.position, spawn.rotation, spawn);
         go.SetActive(true);
         go.GetComponent<Rigidbody>().isKinematic = true;
@@ -27,8 +30,8 @@ public class ThumbnailsRenderer : MonoBehaviour
             rb.isKinematic = true;
             rb.detectCollisions = false;
         }
-
-        cam.targetTexture = thumbnail;
+        item.thumbnail = new RenderTexture(CELL_SIZE * item.width * 10, 10 * CELL_SIZE * item.height, 0);
+        cam.targetTexture = item.thumbnail;
         cam.Render();
         cam.targetTexture = null;
         DestroyImmediate(go);

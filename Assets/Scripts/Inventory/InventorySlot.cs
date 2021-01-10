@@ -23,7 +23,6 @@ public class InventorySlot : MonoBehaviour
 
         _item.transform.SetParent(attachPoint, true);
         item = _item;
-        _item.GenerateThumbnail();
 
         GetComponentInParent<PlayerInventory>().InvalidateUI();
     }

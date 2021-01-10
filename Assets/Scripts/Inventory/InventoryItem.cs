@@ -26,9 +26,19 @@ public class InventoryItem : MonoBehaviour
     public bool stackable = false;
     public int quantity = 1;
 
-    public const int CELL_SIZE = 40;
-
+    public bool shouldUpdateThumbnail = true;
     public RenderTexture thumbnail;
+
+    public RenderTexture GetUpToDateThumbnail()
+    {
+
+        if (shouldUpdateThumbnail)
+        {
+            shouldUpdateThumbnail = false;
+            ThumbnailsRenderer.RenderItemTexture(this);
+        }
+        return thumbnail;
+    }
 
     public override string ToString()
     {
@@ -78,11 +88,5 @@ public class InventoryItem : MonoBehaviour
             if (slot != null) slot.UnregisterItem(this);
         }
 
-    }
-
-    public void GenerateThumbnail()
-    {
-        thumbnail = new RenderTexture(CELL_SIZE * width * 10, 10 * CELL_SIZE * height, 0);
-        ThumbnailsRenderer.RenderItemToTexture(this, thumbnail);
     }
 }

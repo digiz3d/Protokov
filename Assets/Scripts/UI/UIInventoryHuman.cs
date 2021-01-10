@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,9 +24,13 @@ public class UIInventoryHuman : MonoBehaviour
     [SerializeField]
     UIInventoryContainerRenderer backpackContent;
 
-    public void Setup(Canvas _baseCanvas, PlayerInventory inv)
+    public void Setup(Canvas _baseCanvas)
     {
         baseCanvas = _baseCanvas;
+    }
+
+    public void Render(PlayerInventory inv)
+    {
         RefreshSlotRepresentation(weapon1, inv.weapon1);
         RefreshSlotRepresentation(weapon2, inv.weapon2);
         RefreshSlotRepresentation(secondary, inv.secondary);
@@ -45,8 +48,6 @@ public class UIInventoryHuman : MonoBehaviour
         if (slot.item == null) return;
 
         GameObject newItem = Instantiate(itemIconPrefab, slotRepresentation.transform);
-        RawImage rawImage = newItem.GetComponent<RawImage>();
-        rawImage.texture = slot.item.thumbnail;
         UIInventoryDraggableItem draggableItem = newItem.GetComponent<UIInventoryDraggableItem>();
         draggableItem.Setup(baseCanvas, slot.item);
     }

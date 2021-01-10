@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
@@ -11,6 +12,8 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
     {
         baseCanvas = _baseCanvas;
         representedItem = _representedItem;
+        RawImage rawImage = GetComponent<RawImage>();
+        rawImage.texture = representedItem.GetUpToDateThumbnail();
     }
 
     public void OnPointerDown(PointerEventData e)
@@ -30,7 +33,6 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
         Canvas copyCanvas = copy.GetComponent<Canvas>();
         copyCanvas.overrideSorting = true;
         copyCanvas.sortingOrder = 1;
-
         group.alpha = 0.8f;
 
         UIInventory.currentlyDraggingItem = representedItem;

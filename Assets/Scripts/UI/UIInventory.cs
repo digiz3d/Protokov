@@ -48,7 +48,8 @@ public class UIInventory : MonoBehaviour
         GameObject go = Instantiate(inventoryHumanPrefab, leftContentViewport.transform);
         rec.content = go.GetComponent<RectTransform>();
         UIInventoryHuman uiInventoryHuman = go.GetComponent<UIInventoryHuman>();
-        uiInventoryHuman.Setup(baseCanvas, inventory);
+        uiInventoryHuman.Setup(baseCanvas);
+        uiInventoryHuman.Render(inventory);
     }
 
     void RenderRightColumn()
