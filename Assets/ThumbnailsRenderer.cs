@@ -30,8 +30,8 @@ public class ThumbnailsRenderer : MonoBehaviour
             rb.isKinematic = true;
             rb.detectCollisions = false;
         }
-        item.thumbnail = new RenderTexture(CELL_SIZE * item.width * 10, 10 * CELL_SIZE * item.height, 0);
-        cam.targetTexture = item.thumbnail;
+        item.Thumbnail = new RenderTexture(CELL_SIZE * item.width * 10, 10 * CELL_SIZE * item.height, 0);
+        cam.targetTexture = item.Thumbnail;
         cam.Render();
         cam.targetTexture = null;
         DestroyImmediate(go);

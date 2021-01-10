@@ -13,7 +13,7 @@ public class UIInventoryDraggableItem : MonoBehaviour, IPointerDownHandler, IBeg
         baseCanvas = _baseCanvas;
         representedItem = _representedItem;
         RawImage rawImage = GetComponent<RawImage>();
-        rawImage.texture = representedItem.GetUpToDateThumbnail();
+        rawImage.texture = representedItem.Thumbnail;
     }
 
     public void OnPointerDown(PointerEventData e)

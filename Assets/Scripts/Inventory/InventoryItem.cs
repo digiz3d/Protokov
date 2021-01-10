@@ -27,18 +27,22 @@ public class InventoryItem : MonoBehaviour
     public int quantity = 1;
 
     public bool shouldUpdateThumbnail = true;
-    public RenderTexture thumbnail;
 
-    public RenderTexture GetUpToDateThumbnail()
+    RenderTexture thumbnail;
+    public RenderTexture Thumbnail
     {
-
-        if (shouldUpdateThumbnail)
+        get
         {
-            shouldUpdateThumbnail = false;
-            ThumbnailsRenderer.RenderItemTexture(this);
+            if (shouldUpdateThumbnail)
+            {
+                shouldUpdateThumbnail = false;
+                ThumbnailsRenderer.RenderItemTexture(this);
+            }
+            return thumbnail;
         }
-        return thumbnail;
+        set { thumbnail = value; }
     }
+
 
     public override string ToString()
     {
