@@ -26,7 +26,7 @@ public class InventoryItem : MonoBehaviour
     public bool stackable = false;
     public int quantity = 1;
 
-    public bool shouldUpdateThumbnail = true;
+    private bool shouldUpdateThumbnail = true;
 
     RenderTexture thumbnail;
     public RenderTexture Thumbnail
@@ -36,13 +36,17 @@ public class InventoryItem : MonoBehaviour
             if (shouldUpdateThumbnail)
             {
                 shouldUpdateThumbnail = false;
-                ThumbnailsRenderer.RenderItemTexture(this);
+                UpdateThumbnail();
             }
             return thumbnail;
         }
         set { thumbnail = value; }
     }
 
+    public void UpdateThumbnail()
+    {
+        ThumbnailsRenderer.RenderItemTexture(this);
+    }
 
     public override string ToString()
     {

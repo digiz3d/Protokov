@@ -24,16 +24,37 @@ public class ThumbnailsRenderer : MonoBehaviour
         go.GetComponent<Rigidbody>().isKinematic = true;
         go.GetComponent<Rigidbody>().detectCollisions = false;
 
+        float initialSize = cam.orthographicSize;
+        Rect initialRect = cam.rect;
+        float initialFar = cam.farClipPlane;
+        float initialNear = cam.nearClipPlane;
+
+        ThumbnailGenerationSettings generationSettings = go.GetComponent<ThumbnailGenerationSettings>();
+        if (generationSettings != null)
+        {
+            cam.orthographicSize = generationSettings.size;
+            cam.rect = new Rect(0f, 0f, generationSettings.width, generationSettings.height);
+            cam.nearClipPlane = generationSettings.near;
+            cam.farClipPlane = generationSettings.far;
+        }
+
         Rigidbody[] rbs = go.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rb in rbs)
         {
             rb.isKinematic = true;
             rb.detectCollisions = false;
         }
-        item.Thumbnail = new RenderTexture(CELL_SIZE * item.width * 10, 10 * CELL_SIZE * item.height, 0);
+        item.Thumbnail = new RenderTexture(CELL_SIZE * item.width * 8, 8 * CELL_SIZE * item.height, 0);
         cam.targetTexture = item.Thumbnail;
         cam.Render();
         cam.targetTexture = null;
+        if (generationSettings != null)
+        {
+            cam.orthographicSize = initialSize;
+            cam.rect = initialRect;
+            cam.nearClipPlane = initialNear;
+            cam.farClipPlane = initialFar;
+        }
         DestroyImmediate(go);
     }
 }

@@ -94,12 +94,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: DT MDR
   tags: 0100
-  height: 1
-  width: 1
+  height: 2
+  width: 4
   weight: 3.76
   stackable: 0
   quantity: 1
-  thumbnail: {fileID: 0}
+  shouldUpdateThumbnail: 1
 --- !u!114 &6580869660027355833
 MonoBehaviour:
   m_ObjectHideFlags: 0
