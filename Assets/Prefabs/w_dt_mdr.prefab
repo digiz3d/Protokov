@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5297135720011202031}
   - component: {fileID: 6151761171119324776}
   - component: {fileID: 6580869660027355833}
+  - component: {fileID: 96682547104535681}
   m_Layer: 0
   m_Name: w_dt_mdr
   m_TagString: Untagged
@@ -99,7 +100,6 @@ MonoBehaviour:
   weight: 3.76
   stackable: 0
   quantity: 1
-  shouldUpdateThumbnail: 1
 --- !u!114 &6580869660027355833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +115,24 @@ MonoBehaviour:
   requiredTags: 0607
   attachPoint: {fileID: 79899271522545087}
   item: {fileID: 0}
+--- !u!114 &96682547104535681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177387533028191988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee43575d9eb74cc4995304d30abfcc31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 0.26
+  width: 1
+  height: 1
+  near: 1
+  far: 3
+  previousHash: 
 --- !u!1 &8235810977135601864
 GameObject:
   m_ObjectHideFlags: 0

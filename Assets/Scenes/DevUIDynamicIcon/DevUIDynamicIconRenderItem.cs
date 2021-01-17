@@ -10,7 +10,7 @@ namespace DevUIDynamicIcon
         public UIInventoryDraggableItem draggableItem;
 
         // Start is called before the first frame update
-        void Start()
+        void Update()
         {
             draggableItem.Setup(GetComponent<Canvas>(), itemToRender);
         }

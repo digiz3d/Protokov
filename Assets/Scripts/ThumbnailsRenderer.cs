@@ -2,6 +2,9 @@
 
 public class ThumbnailsRenderer : MonoBehaviour
 {
+    public Light thumbnailLight;
+    public static Light staticLight;
+
     static Transform spawn;
 
     static Camera cam;
@@ -14,6 +17,7 @@ public class ThumbnailsRenderer : MonoBehaviour
         spawn = transform;
         cam = GetComponentInChildren<Camera>();
         cam.enabled = false;
+        staticLight = thumbnailLight;
     }
 
     public static void RenderItemTexture(InventoryItem item)
@@ -23,6 +27,7 @@ public class ThumbnailsRenderer : MonoBehaviour
         go.SetActive(true);
         go.GetComponent<Rigidbody>().isKinematic = true;
         go.GetComponent<Rigidbody>().detectCollisions = false;
+        staticLight.gameObject.SetActive(true);
 
         float initialSize = cam.orthographicSize;
         Rect initialRect = cam.rect;
@@ -55,6 +60,7 @@ public class ThumbnailsRenderer : MonoBehaviour
             cam.nearClipPlane = initialNear;
             cam.farClipPlane = initialFar;
         }
+        staticLight.gameObject.SetActive(false);
         DestroyImmediate(go);
     }
 }
