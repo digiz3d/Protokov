@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
-
+﻿using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public UIInventory uiRenderer;
+    public UIInventory inventoryRenderer;
     public InventorySlot weapon1;
     public InventorySlot weapon2;
     public InventorySlot secondary;
@@ -61,14 +56,14 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        if (uiRenderer != null) InvalidateUI();
+        if (inventoryRenderer != null) InvalidateUI();
 
         return res;
     }
 
     public void InvalidateUI()
     {
-        uiRenderer.Invalidate();
+        inventoryRenderer.Invalidate();
     }
 
     public override string ToString()

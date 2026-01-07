@@ -2061,7 +2061,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 995907418}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999743
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3105,7 +3105,7 @@ PrefabInstance:
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0.00018310547
       objectReference: {fileID: 0}
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
@@ -5895,6 +5895,10 @@ PrefabInstance:
       propertyPath: uiRenderer
       value: 
       objectReference: {fileID: 817038884}
+    - target: {fileID: 237443920, guid: 5feb09ac900607f45a8151533576c335, type: 3}
+      propertyPath: inventoryRenderer
+      value: 
+      objectReference: {fileID: 817038884}
     - target: {fileID: 147537864729231300, guid: 5feb09ac900607f45a8151533576c335,
         type: 3}
       propertyPath: m_Version
@@ -5974,6 +5978,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: player
+      objectReference: {fileID: 0}
+    - target: {fileID: 147537865553636222, guid: 5feb09ac900607f45a8151533576c335,
+        type: 3}
+      propertyPath: LockCursor
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
