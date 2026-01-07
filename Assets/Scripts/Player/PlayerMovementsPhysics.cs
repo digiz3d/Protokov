@@ -64,7 +64,7 @@ public class PlayerMovementsPhysics : MonoBehaviour
     {
         if (!playerController.ControlsEnabled) return;
 
-        if (rb.velocity.magnitude > maxSpeed) return;
+        if (rb.linearVelocity.magnitude > maxSpeed) return;
 
         if (isGrounded)
         {

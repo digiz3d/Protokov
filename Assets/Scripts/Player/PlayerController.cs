@@ -18,7 +18,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         if (LockCursor)
+        {
             Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 
     void Update()
