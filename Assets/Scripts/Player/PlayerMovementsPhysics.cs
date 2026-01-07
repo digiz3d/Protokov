@@ -36,8 +36,6 @@ public class PlayerMovementsPhysics : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void FixedUpdate()

@@ -25,8 +25,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(pointer.position, pointer.forward * InteractionMaxDistance, Color.green, 0f);
-
         if (Physics.Raycast(pointer.position, pointer.forward, out RaycastHit hit, InteractionMaxDistance, layerMask))
         {
             GameObject target = hit.collider.gameObject;
@@ -66,7 +64,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void ShowMenu()
+    public void ShowRadialMenu()
     {
         if (currentInteractibleObject != null)
         {
@@ -74,7 +72,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    public void HideMenu()
+    public void HideRadialMenu()
     {
         radialMenuAction.Hide();
     }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
 
+[RequireComponent(typeof(Canvas))]
 public class UIRadialMenuAction : MonoBehaviour
 {
     [SerializeField]
@@ -20,7 +22,7 @@ public class UIRadialMenuAction : MonoBehaviour
     private int previouslyHighlightedItemIndex = -1;
     private HandActionId[] possibleActions;
 
-    void Start()
+    void Awake()
     {
         canvas = GetComponent<Canvas>();
         cursorMenu = Instantiate(cursorMenuPrefab, transform.parent.transform);
@@ -72,7 +74,7 @@ public class UIRadialMenuAction : MonoBehaviour
             return -1;
         }
         float cursorAngle = GetClockwiseAngle();
-        return Mathf.FloorToInt(cursorAngle / 360f * (possibleActions.Length)); ;
+        return Mathf.FloorToInt(cursorAngle / 360f * possibleActions.Length); ;
     }
 
     public HandActionId GetSelectedAction()
@@ -92,12 +94,12 @@ public class UIRadialMenuAction : MonoBehaviour
         foreach (HandActionId actionId in possibleActions)
         {
             GameObject menuItem = Instantiate(menuItemPrefab, canvas.transform);
-            float itemAngle = (360 / possibleActions.Length);
+            float itemAngle = 360 / possibleActions.Length;
             float clockwiseAngle = (itemAngle * -i) - (itemAngle / 2);
             menuItem.transform.Rotate(0, 0, clockwiseAngle);
             Transform childTextTransform = menuItem.transform.GetChild(0);
             childTextTransform.Rotate(0, 0, -clockwiseAngle);
-            childTextTransform.GetComponent<TextMeshProUGUI>().text = i.ToString();
+            childTextTransform.GetComponent<TextMeshProUGUI>().text = actionId.ToString();
             i++;
         }
 
@@ -119,7 +121,7 @@ public class UIRadialMenuAction : MonoBehaviour
     {
         cursorMenu.SetActive(false);
         canvas.gameObject.SetActive(false);
-        foreach (Transform child in canvas.transform)
+        foreach (Transform child in canvas.gameObject.transform)
         {
             Destroy(child.gameObject);
         }

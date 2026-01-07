@@ -11,14 +11,6 @@ public class PlayerInventory : MonoBehaviour
     public InventorySlot helmet;
     public InventorySlot armor;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log(ToString());
-        }
-    }
-
     public bool TryTake(InventoryItem item)
     {
         bool res = true;
@@ -76,5 +68,15 @@ public class PlayerInventory : MonoBehaviour
         str += $"{backpack}\n";
         str += $"{helmet}\n";
         return str;
+    }
+
+    public void ShowInventory()
+    {
+        inventoryRenderer.Show();
+    }
+
+    public void HideInventory()
+    {
+        inventoryRenderer.Hide();
     }
 }

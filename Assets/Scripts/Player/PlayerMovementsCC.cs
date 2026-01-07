@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerController))]
 public class PlayerMovementsCC : MonoBehaviour
 {
-    float walkingSpeed = 5f;
+    const float walkingSpeed = 5f;
 
     Camera cam;
     PlayerController playerController;
@@ -65,8 +66,7 @@ public class PlayerMovementsCC : MonoBehaviour
     {
         desiredMove = playerController.ControlsEnabled ? transform.forward * movementInput.y + transform.right * movementInput.x : Vector3.zero;
 
-        RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, cc.radius, Vector3.down, out hitInfo, cc.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+        Physics.SphereCast(transform.position, cc.radius, Vector3.down, out RaycastHit hitInfo, cc.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
         Debug.DrawLine(transform.position, transform.position + desiredMove, Color.yellow);
         desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
         Debug.DrawLine(transform.position, transform.position + desiredMove * 0.8f, Color.cyan);

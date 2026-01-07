@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class UIInventory : MonoBehaviour
 {
     public PlayerInventory inventory;
@@ -14,9 +15,19 @@ public class UIInventory : MonoBehaviour
 
     public const int CELL_SIZE = 40;
 
-    public bool isInvalidated = true;
+    private bool isInvalidated = true;
 
     public static InventoryItem currentlyDraggingItem = null;
+
+    public void Show()
+    {
+        baseCanvas.enabled = true;
+    }
+
+    public void Hide()
+    {
+        baseCanvas.enabled = false;
+    }
 
     void Update()
     {
