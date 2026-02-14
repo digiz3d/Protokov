@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PlayerController))]
 public class PlayerMovementsPhysics : MonoBehaviour
 {
-    [SerializeField, Range(0f, 20f)]
-    private float mouseSensitivity = 5f;
+
+    InputAction jumpAction;
+    InputAction crouchAction;
+    InputAction sprintAction;
+    InputAction lookAction;
+    InputAction moveAction;
+
+
+
 
     [SerializeField]
     private float moveForce = 100000f;
@@ -36,6 +44,11 @@ public class PlayerMovementsPhysics : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerController = GetComponent<PlayerController>();
+        jumpAction = InputSystem.actions.FindAction("Jump");
+        crouchAction = InputSystem.actions.FindAction("Crouch");
+        sprintAction = InputSystem.actions.FindAction("Sprint");
+        lookAction = InputSystem.actions.FindAction("Look");
+        moveAction = InputSystem.actions.FindAction("Move");
     }
 
     private void FixedUpdate()
@@ -75,15 +88,16 @@ public class PlayerMovementsPhysics : MonoBehaviour
 
     private void HandleInputs()
     {
-        forwardInput = Input.GetAxisRaw("Vertical");
-        sideInput = Input.GetAxisRaw("Horizontal");
+        forwardInput = moveAction.ReadValue<Vector2>().y;
+        sideInput = moveAction.ReadValue<Vector2>().x;
 
-        jumpInput = Input.GetKey(KeyCode.Space);
-        crouchInput = Input.GetKey(KeyCode.LeftControl);
-        sprintInput = Input.GetKey(KeyCode.LeftShift);
+        jumpInput = jumpAction.IsPressed();
+        crouchInput = crouchAction.IsPressed();
+        sprintInput = sprintAction.IsPressed();
 
-        mouseX = Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        mouseY = Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
+        Vector2 look = lookAction.ReadValue<Vector2>();
+        mouseX = look.x;
+        mouseY = look.y;
     }
 
     private void RotateCharacter()

@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerController))]
 public class PlayerMovementsCC : MonoBehaviour
 {
+    InputAction lookAction;
+    InputAction moveAction;
+
     const float walkingSpeed = 5f;
 
     Camera cam;
@@ -23,6 +27,8 @@ public class PlayerMovementsCC : MonoBehaviour
         cc = GetComponent<CharacterController>();
         cam = GetComponentInChildren<Camera>();
         playerController = GetComponent<PlayerController>();
+        lookAction = InputSystem.actions.FindAction("Look");
+        moveAction = InputSystem.actions.FindAction("Move");
     }
 
     void Update()
@@ -38,18 +44,12 @@ public class PlayerMovementsCC : MonoBehaviour
 
     void HandleInput()
     {
-        float x = Input.GetAxisRaw("Mouse X");
-        float y = Input.GetAxisRaw("Mouse Y");
+        float x = lookAction.ReadValue<Vector2>().x;
+        float y = lookAction.ReadValue<Vector2>().y;
         mouseInput.x = x;
         mouseInput.y = y;
 
-        float vertical = Input.GetAxisRaw("Vertical");
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        movementInput = new Vector2(horizontal, vertical);
-        if (movementInput.sqrMagnitude > 1)
-        {
-            movementInput.Normalize();
-        }
+        movementInput = moveAction.ReadValue<Vector2>();
     }
 
     void PlayerRotation()

@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Canvas))]
 public class UIRadialMenuAction : MonoBehaviour
 {
-    [SerializeField]
-    private float centerRadius = 50f;
+    InputAction lookAction;
 
     [SerializeField]
-    private float mouseSensitivity = 1f;
+    private float centerRadius = 50f;
 
     [SerializeField]
     private GameObject menuItemPrefab = default;
@@ -30,11 +30,17 @@ public class UIRadialMenuAction : MonoBehaviour
         cursorMenu.SetActive(false);
     }
 
+    void Start()
+    {
+        lookAction = InputSystem.actions.FindAction("Look");
+    }
+
     void Update()
     {
         if (!canvas.isActiveAndEnabled) return;
 
-        cursorMenu.transform.Translate(new Vector3(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"), 0) * mouseSensitivity, Space.Self);
+        Vector2 look = lookAction.ReadValue<Vector2>();
+        cursorMenu.transform.Translate(new Vector3(look.x, look.y, 0), Space.Self);
         cursorMenu.transform.localPosition = Vector3.ClampMagnitude(cursorMenu.transform.localPosition, 100);
 
         HighlightHoveredItem();

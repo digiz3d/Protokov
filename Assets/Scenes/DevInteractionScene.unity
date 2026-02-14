@@ -3109,7 +3109,7 @@ PrefabInstance:
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000061035156
+      value: 0.00018310547
       objectReference: {fileID: 0}
     - target: {fileID: 2457424163163746333, guid: 5b82f3184aadfae4ca81f490192dd5d8,
         type: 3}
@@ -6079,6 +6079,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100556708437346733, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: slowActions.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100556708437346733, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: 'slowActions.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 100556708437346733, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
+        type: 3}
+      propertyPath: 'slowActions.Array.data[1]'
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 997858823123714108, guid: 934aed38ef58fce4fb2c9d8f35d101b8,
         type: 3}
       propertyPath: items.Array.size

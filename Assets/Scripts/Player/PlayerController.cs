@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerInteraction))]
 [RequireComponent(typeof(PlayerInventory))]
 public class PlayerController : MonoBehaviour
 {
+    InputAction interactionInputAction;
+    InputAction inventoryInputAction;
+
     public bool ControlsEnabled { get; set; } = true;
 
     private PlayerInteraction playerInteraction;
@@ -22,19 +26,21 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        interactionInputAction = InputSystem.actions.FindAction("Interact");
+        inventoryInputAction = InputSystem.actions.FindAction("Inventory");
     }
 
     void Update()
     {
         bool pressedUseKey = false;
         bool isPressingUseKey = false;
-        bool releasedUseKey = Input.GetKeyUp(KeyCode.F);
-        bool pressedInventoryKey = Input.GetKeyDown(KeyCode.I);
+        bool releasedUseKey = interactionInputAction.WasReleasedThisFrame();
+        bool pressedInventoryKey = inventoryInputAction.WasPressedThisFrame();
 
         if (ControlsEnabled)
         {
-            pressedUseKey = Input.GetKeyDown(KeyCode.F);
-            isPressingUseKey = Input.GetKey(KeyCode.F);
+            pressedUseKey = interactionInputAction.WasPressedThisFrame();
+            isPressingUseKey = interactionInputAction.IsPressed();
         }
 
         // interact
