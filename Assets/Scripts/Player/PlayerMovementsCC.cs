@@ -22,6 +22,9 @@ public class PlayerMovementsCC : MonoBehaviour
     Vector3 desiredMove;
     Vector3 moveDir;
 
+    [SerializeField, Range(0f, 1f)]
+    private float sensitivity = 1f;
+
     void Start()
     {
         cc = GetComponent<CharacterController>();
@@ -44,8 +47,9 @@ public class PlayerMovementsCC : MonoBehaviour
 
     void HandleInput()
     {
-        float x = lookAction.ReadValue<Vector2>().x;
-        float y = lookAction.ReadValue<Vector2>().y;
+        var look = lookAction.ReadValue<Vector2>() * sensitivity;
+        float x = look.x;
+        float y = look.y;
         mouseInput.x = x;
         mouseInput.y = y;
 

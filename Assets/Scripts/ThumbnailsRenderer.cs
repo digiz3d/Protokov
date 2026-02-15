@@ -3,7 +3,7 @@
 public class ThumbnailsRenderer : MonoBehaviour
 {
     public Light thumbnailLight;
-    public static Light staticLight;
+    public static GameObject staticLightGo;
 
     static Transform spawn;
 
@@ -17,50 +17,71 @@ public class ThumbnailsRenderer : MonoBehaviour
         spawn = transform;
         cam = GetComponentInChildren<Camera>();
         cam.enabled = false;
-        staticLight = thumbnailLight;
+        staticLightGo = thumbnailLight.gameObject;
     }
 
     public static void RenderItemTexture(InventoryItem item)
     {
-        Debug.Log($"Rendering item : {item.name} from {item.gameObject.name}");
-        GameObject go = Instantiate(item.gameObject, spawn.position, Quaternion.LookRotation(Vector3.back, Vector3.up), spawn);
-        go.SetActive(true);
-        go.GetComponent<Rigidbody>().isKinematic = true;
-        go.GetComponent<Rigidbody>().detectCollisions = false;
-        staticLight.gameObject.SetActive(true);
+#if UNITY_EDITOR
+        // Ensure static fields are initialized
 
-        float initialSize = cam.orthographicSize;
-        Rect initialRect = cam.rect;
-        float initialFar = cam.farClipPlane;
-        float initialNear = cam.nearClipPlane;
-
-        ThumbnailGenerationSettings generationSettings = go.GetComponent<ThumbnailGenerationSettings>();
-        if (generationSettings != null)
+        if (spawn == null || cam == null || staticLightGo == null)
         {
-            cam.orthographicSize = generationSettings.size;
-            cam.rect = new Rect(0f, 0f, generationSettings.width, generationSettings.height);
-            cam.nearClipPlane = generationSettings.near;
-            cam.farClipPlane = generationSettings.far;
+            ThumbnailsRenderer renderer = FindFirstObjectByType<ThumbnailsRenderer>();
+            if (renderer == null)
+            {
+                Debug.LogError("ThumbnailsRenderer not found in scene! Please add it to the scene.");
+                return;
+            }
+            spawn = renderer.transform;
+            cam = renderer.GetComponentInChildren<Camera>();
+            staticLightGo = renderer.thumbnailLight.gameObject;
+            if (cam == null)
+            {
+                Debug.LogError("Camera not found as child of ThumbnailsRenderer!");
+                return;
+            }
+        }
+#endif
+
+        var go = Instantiate(item.gameObject, spawn.position, Quaternion.LookRotation(Vector3.back, Vector3.up), spawn);
+
+        if (!go.TryGetComponent<ThumbnailGenerationSettings>(out var generationSettings))
+        {
+            DestroyImmediate(go);
+            return;
         }
 
-        Rigidbody[] rbs = go.GetComponentsInChildren<Rigidbody>();
+        go.SetActive(true);
+        if (go.TryGetComponent<Rigidbody>(out var rigidbody))
+        {
+            rigidbody.isKinematic = true;
+            rigidbody.detectCollisions = false;
+        }
+        staticLightGo.SetActive(true);
+
+
+
+
+        cam.orthographicSize = generationSettings.size;
+        cam.rect = new Rect(0f, 0f, generationSettings.width, generationSettings.height);
+        cam.nearClipPlane = generationSettings.near;
+        cam.farClipPlane = generationSettings.far;
+
+
+        var rbs = go.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rb in rbs)
         {
             rb.isKinematic = true;
             rb.detectCollisions = false;
         }
-        item.Thumbnail = new RenderTexture(CELL_SIZE * item.width * 8, 8 * CELL_SIZE * item.height, 0);
-        cam.targetTexture = item.Thumbnail;
+        var texture = new RenderTexture(CELL_SIZE * item.width * 8, 8 * CELL_SIZE * item.height, 0);
+        item.Thumbnail = texture;
+        cam.targetTexture = texture;
         cam.Render();
         cam.targetTexture = null;
-        if (generationSettings != null)
-        {
-            cam.orthographicSize = initialSize;
-            cam.rect = initialRect;
-            cam.nearClipPlane = initialNear;
-            cam.farClipPlane = initialFar;
-        }
-        staticLight.gameObject.SetActive(false);
+
+        staticLightGo.SetActive(false);
         DestroyImmediate(go);
     }
 }

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace DevUIDynamicIcon
 {
+    [RequireComponent(typeof(Canvas))]
     public class DevUIDynamicIconRenderItem : MonoBehaviour
     {
         public InventoryItem itemToRender;

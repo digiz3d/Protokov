@@ -5,13 +5,16 @@ public class ThumbnailGenerationSettings : MonoBehaviour
 {
     public float size = 1f;
 
-    public float width = 1f;
-    public float height = 1f;
+    public int width = 1;
+    public int height = 1;
 
-    public float near = 1f;
-    public float far = 1f;
+    public int near = 1;
+    public int far = 1;
 
     public string previousHash = "";
+
+    [SerializeField]
+    private RenderTexture thumbnailPreview;
 
     void Start()
     {
@@ -20,7 +23,7 @@ public class ThumbnailGenerationSettings : MonoBehaviour
 
     void Update()
     {
-        string newHash = makeHash();
+        var newHash = makeHash();
         if (previousHash != newHash)
         {
             previousHash = newHash;
@@ -34,5 +37,16 @@ public class ThumbnailGenerationSettings : MonoBehaviour
     string makeHash()
     {
         return $"{size}-{width}-{height}-{near}-{far}";
+    }
+
+    public void GenerateThumbnailPreview()
+    {
+        if (!TryGetComponent<InventoryItem>(out var item))
+        {
+            Debug.LogError("ThumbnailGenerationSettings requires an InventoryItem component on the same GameObject.");
+            return;
+        }
+        ThumbnailsRenderer.RenderItemTexture(item);
+        thumbnailPreview = item.Thumbnail;
     }
 }

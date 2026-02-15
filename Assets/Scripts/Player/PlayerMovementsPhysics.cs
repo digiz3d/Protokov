@@ -88,8 +88,9 @@ public class PlayerMovementsPhysics : MonoBehaviour
 
     private void HandleInputs()
     {
-        forwardInput = moveAction.ReadValue<Vector2>().y;
-        sideInput = moveAction.ReadValue<Vector2>().x;
+        var move = moveAction.ReadValue<Vector2>();
+        forwardInput = move.y;
+        sideInput = move.x;
 
         jumpInput = jumpAction.IsPressed();
         crouchInput = crouchAction.IsPressed();
