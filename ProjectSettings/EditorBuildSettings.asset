@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/DevInteractionScene.unity
     guid: cbfe36cfddfde964d9dfce63a355d5dd
   m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 487d1565e5d78774781cf2bbc7828f0e,
+      type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3ae3ed871b4071543bde62116383665a,
       type: 2}
   m_UseUCBPForAssetBundles: 0

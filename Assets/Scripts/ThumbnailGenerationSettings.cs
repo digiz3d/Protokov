@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InventoryItem))]
 public class ThumbnailGenerationSettings : MonoBehaviour
 {
     public float size = 1f;
@@ -25,9 +24,10 @@ public class ThumbnailGenerationSettings : MonoBehaviour
         if (previousHash != newHash)
         {
             previousHash = newHash;
-            InventoryItem item = GetComponent<InventoryItem>();
-            if (item != null)
+            if (TryGetComponent<InventoryItem>(out var item))
+            {
                 item.UpdateThumbnail();
+            }
         }
     }
 

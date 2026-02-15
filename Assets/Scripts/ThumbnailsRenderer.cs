@@ -23,7 +23,7 @@ public class ThumbnailsRenderer : MonoBehaviour
     public static void RenderItemTexture(InventoryItem item)
     {
         Debug.Log($"Rendering item : {item.name} from {item.gameObject.name}");
-        GameObject go = Instantiate(item.gameObject, spawn.position, spawn.rotation, spawn);
+        GameObject go = Instantiate(item.gameObject, spawn.position, Quaternion.LookRotation(Vector3.back, Vector3.up), spawn);
         go.SetActive(true);
         go.GetComponent<Rigidbody>().isKinematic = true;
         go.GetComponent<Rigidbody>().detectCollisions = false;
